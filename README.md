@@ -1,1 +1,1 @@
-# capstone
+# Senior Capstone (Piazza Replacement)
