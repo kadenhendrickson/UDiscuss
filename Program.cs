@@ -1,5 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using UDiscuss.Data;
 var builder = WebApplication.CreateBuilder(args);
-
+var connectionString = builder.Configuration.GetConnectionString("UDiscussContextConnection");builder.Services.AddDbContext<UDiscussContext>(options =>
+    options.UseSqlServer(connectionString));builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<UDiscussContext>();
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
@@ -16,7 +21,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
