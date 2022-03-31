@@ -12,7 +12,7 @@ export class SelectedPostHeader extends Component {
     // TODO - make time float to the right
     render() {
         return (
-            <div className="secondary-color">
+            <div className="secondary-color underline-nav">
                 <p>{this.props.postType} by {this.props.author}</p>
                 <p className="pull-right">{this.props.timeSincePost}</p>
             </div>

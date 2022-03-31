@@ -5,6 +5,8 @@ import { SelectedPostVoteButton } from './SelectedPost/SelectedPostVoteButton';
 import { SelectedPostTitle } from './SelectedPost/SelectedPostTitle';
 import { SelectedPostBody } from './SelectedPost/SelectedPostBody';
 import { SelectedPostHeader } from './SelectedPost/SelectedPostHeader';
+import { SelectedPost } from './SelectedPost/SelectedPost';
+import { Triangle } from './Triangle';
 
 export class Counter extends Component {
   static displayName = Counter.name;
@@ -24,9 +26,11 @@ export class Counter extends Component {
   render() {
     return (
       <div>
-            <h1>Counter</h1>
+            <h1>Triangle</h1>
+            <Triangle/>
 
 
+            <SelectedPost/>
             <SelectedPostVoteButton upvotes={5} isToggled={true} />
             <SelectedPostTitle title="this is a title" />
             <SelectedPostBody body="this is the body.............." />

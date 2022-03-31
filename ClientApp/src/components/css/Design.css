@@ -1,0 +1,11 @@
+﻿/* Contains all the colors needed for dark theme */
+
+
+.bottom-border-red{
+    border-bottom: 1px solid #CC0000;
+}
+
+.post-border {
+    border-style: solid;
+    border-width: 2px;
+}
