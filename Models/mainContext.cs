@@ -28,7 +28,7 @@ namespace UDiscuss.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.7-mariadb"));
+                optionsBuilder.UseMySql("server=capstone-test.cb4wdfzowfcg.us-west-1.rds.amazonaws.com;user=admin;password=g0kaPBEN02oBcArRR4XP;database=main", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.7-mariadb"));
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using UDiscuss.Models;
+using System.Linq;
 
 namespace UDiscuss.Controllers;
 
@@ -10,19 +12,49 @@ public class PostController : ControllerBase
 
     private readonly ILogger<PostController> _logger;
 
+
     public PostController(ILogger<PostController> logger)
     {
         _logger = logger;
     }
 
     /// <summary>
-    /// 
+    /// This will return a post with the matching id or null if the post
+    /// cannot be found.
     /// </summary>
-    /// <returns></returns>
+    /// <param name="postid">The id that refers to the post</param>
+    /// <returns>IEnumerables of a post that matches the id provided or null
+    /// if it doesn't exist.</returns>
+    /*[HttpGet]
+    public IEnumerable<Post> Get(int postid)
+    {
+        return null;
+    }*/
+
+    /// <summary>
+    /// This will get all of the posts currently in the database.
+    /// </summary>
+    /// <returns>IEnumerables of posts</returns>
     [HttpGet]
     public IEnumerable<Post> Get()
     {
-        return null;
+        List<Post> posts = new(); 
+        using (mainContext db = new mainContext())
+        {
+            var query = db.Posts;
+            foreach(var post in query)
+            {
+                Post p = new Post();
+                p.Title = post.Title;
+                p.AuthorId = post.AuthorId;
+                p.DateCreated = post.DateCreated;
+                p.Body = post.Body;
+                p.CategoryId = post.CategoryId;
+
+                posts.Add(p);
+            }
+        }
+        return posts;
     }
 
     [HttpPost]
