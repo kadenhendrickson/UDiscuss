@@ -9,22 +9,17 @@ namespace UDiscuss.Models
         {
             Posts = new HashSet<Post>();
             Replies = new HashSet<Reply>();
-            Classes = new HashSet<Class>();
-            Classes1 = new HashSet<Class>();
-            ClassesNavigation = new HashSet<Class>();
+            Rosters = new HashSet<Roster>();
         }
 
         public uint UserId { get; set; }
         public string FirstName { get; set; } = null!;
         public string? LastName { get; set; }
         public string? Email { get; set; }
+        public bool IsAdmin { get; set; }
 
-        public virtual Admin Admin { get; set; } = null!;
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Reply> Replies { get; set; }
-
-        public virtual ICollection<Class> Classes { get; set; }
-        public virtual ICollection<Class> Classes1 { get; set; }
-        public virtual ICollection<Class> ClassesNavigation { get; set; }
+        public virtual ICollection<Roster> Rosters { get; set; }
     }
 }

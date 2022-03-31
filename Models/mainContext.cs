@@ -16,11 +16,11 @@ namespace UDiscuss.Models
         {
         }
 
-        public virtual DbSet<Admin> Admins { get; set; } = null!;
         public virtual DbSet<Class> Classes { get; set; } = null!;
         public virtual DbSet<Post> Posts { get; set; } = null!;
         public virtual DbSet<PostCategory> PostCategories { get; set; } = null!;
         public virtual DbSet<Reply> Replies { get; set; } = null!;
+        public virtual DbSet<Roster> Rosters { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,26 +36,6 @@ namespace UDiscuss.Models
         {
             modelBuilder.UseCollation("latin1_swedish_ci")
                 .HasCharSet("latin1");
-
-            modelBuilder.Entity<Admin>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PRIMARY");
-
-                entity.HasCharSet("utf8mb4")
-                    .UseCollation("utf8mb4_general_ci");
-
-                entity.Property(e => e.UserId)
-                    .HasColumnType("int(10) unsigned")
-                    .ValueGeneratedNever()
-                    .HasColumnName("UserID");
-
-                entity.HasOne(d => d.User)
-                    .WithOne(p => p.Admin)
-                    .HasForeignKey<Admin>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Admins_FK");
-            });
 
             modelBuilder.Entity<Class>(entity =>
             {
@@ -75,63 +55,6 @@ namespace UDiscuss.Models
                 entity.Property(e => e.ShortName).HasMaxLength(50);
 
                 entity.Property(e => e.Year).HasColumnType("year(4)");
-
-                entity.HasMany(d => d.Users)
-                    .WithMany(p => p.Classes)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "Professor",
-                        l => l.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("Professors_FK"),
-                        r => r.HasOne<Class>().WithMany().HasForeignKey("ClassId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("Professors_FK_1"),
-                        j =>
-                        {
-                            j.HasKey("ClassId", "UserId").HasName("PRIMARY").HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-
-                            j.ToTable("Professors").HasCharSet("utf8mb4").UseCollation("utf8mb4_general_ci");
-
-                            j.HasIndex(new[] { "UserId" }, "Professors_FK");
-
-                            j.IndexerProperty<uint>("ClassId").HasColumnType("int(10) unsigned").HasColumnName("ClassID");
-
-                            j.IndexerProperty<uint>("UserId").HasColumnType("int(10) unsigned").HasColumnName("UserID");
-                        });
-
-                entity.HasMany(d => d.Users1)
-                    .WithMany(p => p.Classes1)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "Ta",
-                        l => l.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("TAs_FK"),
-                        r => r.HasOne<Class>().WithMany().HasForeignKey("ClassId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("TAs_FK_1"),
-                        j =>
-                        {
-                            j.HasKey("ClassId", "UserId").HasName("PRIMARY").HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-
-                            j.ToTable("TAs").HasCharSet("utf8mb4").UseCollation("utf8mb4_general_ci");
-
-                            j.HasIndex(new[] { "UserId" }, "Professors_FK");
-
-                            j.IndexerProperty<uint>("ClassId").HasColumnType("int(10) unsigned").HasColumnName("ClassID");
-
-                            j.IndexerProperty<uint>("UserId").HasColumnType("int(10) unsigned").HasColumnName("UserID");
-                        });
-
-                entity.HasMany(d => d.UsersNavigation)
-                    .WithMany(p => p.ClassesNavigation)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "Student",
-                        l => l.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("Students_FK"),
-                        r => r.HasOne<Class>().WithMany().HasForeignKey("ClassId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("Students_FK_1"),
-                        j =>
-                        {
-                            j.HasKey("ClassId", "UserId").HasName("PRIMARY").HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-
-                            j.ToTable("Students").HasCharSet("utf8mb4").UseCollation("utf8mb4_general_ci");
-
-                            j.HasIndex(new[] { "UserId" }, "Professors_FK");
-
-                            j.IndexerProperty<uint>("ClassId").HasColumnType("int(10) unsigned").HasColumnName("ClassID");
-
-                            j.IndexerProperty<uint>("UserId").HasColumnType("int(10) unsigned").HasColumnName("UserID");
-                        });
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -267,6 +190,42 @@ namespace UDiscuss.Models
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Reply_FK");
+            });
+
+            modelBuilder.Entity<Roster>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.ClassId })
+                    .HasName("PRIMARY")
+                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+
+                entity.ToTable("Roster");
+
+                entity.HasIndex(e => e.ClassId, "Roster_FK");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnType("int(10) unsigned")
+                    .HasColumnName("UserID");
+
+                entity.Property(e => e.ClassId)
+                    .HasColumnType("int(10) unsigned")
+                    .HasColumnName("ClassID");
+
+                entity.Property(e => e.Role)
+                    .HasMaxLength(1)
+                    .HasDefaultValueSql("'s'")
+                    .IsFixedLength();
+
+                entity.HasOne(d => d.Class)
+                    .WithMany(p => p.Rosters)
+                    .HasForeignKey(d => d.ClassId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Roster_FK");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Rosters)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Roster_FK_1");
             });
 
             modelBuilder.Entity<User>(entity =>
