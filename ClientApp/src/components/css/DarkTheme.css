@@ -2,21 +2,25 @@
 
 
 .primary-color {
-    color: black;
+    background-color: black;
 }
 
 /* a dark gray color here. */
 .secondary-color {
-    color: #5D5D5D;
+    background-color: #5D5D5D;
 }
 
 
 .outline-color {
+    background-color: white;
+}
+
+.text-color {
     color: white;
 }
 
 
 /* red accent color, used in both light and dark mode.*/
 .accent-color {
-    color: #CC0000;
+    background-color: #CC0000;
 }
