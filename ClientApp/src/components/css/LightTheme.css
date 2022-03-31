@@ -1,0 +1,26 @@
+﻿/* Contains all the colors needed for light theme */
+
+
+.primary-color {
+    background-color: white
+}
+
+/* a light gray color here. */
+.secondary-color {
+    background-color: #CECECE;
+}
+
+
+.outline-color {
+    background-color: black;
+}
+
+.text-color {
+    color: black;
+}
+
+
+/* red accent color, used in both light and dark mode.*/
+.accent-color {
+    background-color: #CC0000;
+}

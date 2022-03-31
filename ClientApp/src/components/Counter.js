@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './NavMenu.css';
+import './css/LightTheme.css';
 
 export class Counter extends Component {
   static displayName = Counter.name;
@@ -20,7 +22,7 @@ export class Counter extends Component {
       <div>
         <h1>Counter</h1>
 
-        <p>This is a simple example of a React component.</p>
+            <p className="">This is a simple example of a React component.</p>
 
         <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
 

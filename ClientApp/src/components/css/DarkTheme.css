@@ -1,0 +1,22 @@
+﻿/* Contains all the colors needed for dark theme */
+
+
+.primary-color {
+    color: black;
+}
+
+/* a dark gray color here. */
+.secondary-color {
+    color: #5D5D5D;
+}
+
+
+.outline-color {
+    color: white;
+}
+
+
+/* red accent color, used in both light and dark mode.*/
+.accent-color {
+    color: #CC0000;
+}
