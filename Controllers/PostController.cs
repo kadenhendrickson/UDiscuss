@@ -15,7 +15,10 @@ public class PostController : ControllerBase
         _logger = logger;
     }
 
-    // what does this meta tag do?
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public IEnumerable<Post> Get()
     {
