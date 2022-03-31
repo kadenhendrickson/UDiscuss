@@ -4,8 +4,8 @@ import React, { Component } from 'react';
  * Represents an upvote button which user can click to toggle their vote.
  *  
  * */
-export class PostVoteButton extends Component {
-    static displayName = PostVoteButton.name;
+export class SelectedPostVoteButton extends Component {
+    static displayName = SelectedPostVoteButton.name;
 
     constructor(props) {
         super(props);
