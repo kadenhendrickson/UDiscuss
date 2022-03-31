@@ -2,6 +2,7 @@
 using System;
 using UDiscuss.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UDiscuss.Controllers;
 
@@ -25,11 +26,11 @@ public class PostController : ControllerBase
     /// <param name="postid">The id that refers to the post</param>
     /// <returns>IEnumerables of a post that matches the id provided or null
     /// if it doesn't exist.</returns>
-    /*[HttpGet]
+    [HttpGet]
     public IEnumerable<Post> Get(int postid)
     {
         return null;
-    }*/
+    }
 
     /// <summary>
     /// This will get all of the posts currently in the database.
@@ -44,7 +45,7 @@ public class PostController : ControllerBase
             var query = db.Posts;
             foreach(var post in query)
             {
-                Post p = new Post();
+                Post p = new();
                 p.Title = post.Title;
                 p.AuthorId = post.AuthorId;
                 p.DateCreated = post.DateCreated;
