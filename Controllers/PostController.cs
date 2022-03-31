@@ -21,4 +21,10 @@ public class PostController : ControllerBase
     {
         return null;
     }
+
+    [HttpPost]
+    public bool Post(string text)
+    {
+        return false;
+    }
 }
