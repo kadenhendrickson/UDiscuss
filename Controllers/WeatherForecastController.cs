@@ -18,6 +18,7 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
+    // what does this meta tag do?
     [HttpGet]
     public IEnumerable<WeatherForecast> Get()
     {
