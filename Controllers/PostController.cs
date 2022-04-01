@@ -19,18 +19,18 @@ public class PostController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// This will return a post with the matching id or null if the post
-    /// cannot be found.
-    /// </summary>
-    /// <param name="postid">The id that refers to the post</param>
-    /// <returns>IEnumerables of a post that matches the id provided or null
-    /// if it doesn't exist.</returns>
-    [HttpGet]
-    public IEnumerable<Post> Get(int postid)
-    {
-        return null;
-    }
+    ///// <summary>
+    ///// This will return a post with the matching id or null if the post
+    ///// cannot be found.
+    ///// </summary>
+    ///// <param name="postid">The id that refers to the post</param>
+    ///// <returns>IEnumerables of a post that matches the id provided or null
+    ///// if it doesn't exist.</returns>
+    //[HttpGet]
+    //public IEnumerable<Post> Get(int postid)
+    //{
+    //    return null;
+    //}
 
     /// <summary>
     /// This will get all of the posts currently in the database.
