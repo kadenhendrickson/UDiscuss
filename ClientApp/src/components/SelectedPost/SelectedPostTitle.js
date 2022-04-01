@@ -10,7 +10,7 @@ export class SelectedPostTitle extends Component {
     render() {
         return (
             <div>
-                <h4 aria-live="polite">{this.props.title}</h4>
+                <h4 style={{ margin: '10px' }} aria-live="polite">{this.props.title}</h4>
             </div>
         );
     }

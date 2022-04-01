@@ -4,17 +4,20 @@ import '../css/LightTheme.css';
 
 /*
  * Creates the header banner for the selected post.
+ * 
+ * The question type and name are on the left, while the time is on right.
  *  
  * */
 export class SelectedPostHeader extends Component {
     static displayName = SelectedPostHeader.name;
 
-    // TODO - make time float to the right
     render() {
         return (
-            <div className="secondary-color underline-nav">
-                <p>{this.props.postType} by {this.props.author}</p>
-                <p className="pull-right">{this.props.timeSincePost}</p>
+            <div className="secondary-color underline-nav" >
+                <div style={{ 'margin-right': '10px', 'margin-left': '10px'}}>
+                    <p style={{ float: 'right'}}>{this.props.timeSincePost}</p>
+                    <p>{this.props.postType} by {this.props.author}</p>
+                </div>
             </div>
         );
     }

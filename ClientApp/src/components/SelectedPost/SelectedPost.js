@@ -18,12 +18,15 @@ export class SelectedPost extends Component {
         return (
             <div className="post-border border-color">
                 <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
-                <SelectedPostTitle title="This is a title" />
+                <SelectedPostTitle title="This is a title"/>
                 <SelectedPostBody body="this is the body............ blah blah blah asdf asdf;lajsdflkaj;sal;s fjasdfasdf" />
-                <div style={st}>
+                <div style={{float: 'right', margin: '10px'}}>
                     <SelectedPostTag tagTitle="Logistics" />
                 </div>
-                <SelectedPostVoteButton upvotes={7} isToggled={false} />
+                <div style={{margin: '10px' }}>
+                    <SelectedPostVoteButton upvotes={7} isToggled={false} />
+                </div>
+                
             </div>
         );
     }

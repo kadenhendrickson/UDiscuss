@@ -34,20 +34,20 @@ export class SelectedPostVoteButton extends Component {
         }
     }
 
-
+    // TODO - fix so number isn't centered based off of padding
     render() {
         let arrow;
        
         if (this.state.isToggled)
-            arrow = <Triangle size={15} color="#CC0000"/>;
+            arrow = <Triangle size={20} color="#CC0000"/>;
         else
-            arrow = <Triangle size={15} color="#CECECE"/>;
+            arrow = <Triangle size={20} color="#CECECE"/>;
         return (
             <div>
-                <div onClick={this.toggleUpvote}>
-                    {arrow}
-                </div>
-                <p aria-live="polite">{this.state.upvotes}</p>
+
+                {arrow}
+                
+                <p style={{ 'padding-left': '6px' }}><b>{this.state.upvotes}</b></p>
             </div>
         );
     }

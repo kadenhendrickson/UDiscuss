@@ -10,7 +10,7 @@ export class SelectedPostBody extends Component {
     render() {
         return (
             <div>
-                <p aria-live="polite">{this.props.body}</p>
+                <p style={{ margin: '10px' }}>{this.props.body}</p>
             </div>
         );
     }
