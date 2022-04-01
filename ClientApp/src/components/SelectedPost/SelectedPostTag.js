@@ -10,7 +10,7 @@ export class SelectedPostTag extends Component {
     render() {
         return (
             <div>
-                <button>{this.props.tagTitle}</button>
+                <button className="btn btn-outline-danger post-tag">{this.props.tagTitle}</button>
             </div>
         );
     }

@@ -27,7 +27,7 @@ export class Counter extends Component {
     return (
       <div>
             <h1>Triangle</h1>
-            <Triangle/>
+            <Triangle size={20} color="red"/>
 
 
             <SelectedPost/>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { Triangle } from './../Triangle';
+import './../css/LightTheme.css';
 /*
  * Represents an upvote button which user can click to toggle their vote.
  *  
@@ -34,18 +35,18 @@ export class SelectedPostVoteButton extends Component {
     }
 
 
-
-    // TODO - turn toggle button into a triangle.
     render() {
-        let button;
+        let arrow;
+       
         if (this.state.isToggled)
-            button = <button className="btn btn-danger" onClick={this.toggleUpvote}></button>;
+            arrow = <Triangle size={15} color="#CC0000"/>;
         else
-            button = <button className="btn btn-primary" onClick={this.toggleUpvote}></button>;
+            arrow = <Triangle size={15} color="#CECECE"/>;
         return (
             <div>
-
-                {button}
+                <div onClick={this.toggleUpvote}>
+                    {arrow}
+                </div>
                 <p aria-live="polite">{this.state.upvotes}</p>
             </div>
         );

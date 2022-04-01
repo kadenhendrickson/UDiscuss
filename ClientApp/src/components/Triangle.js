@@ -4,11 +4,11 @@ export class Triangle extends Component {
   static displayName = Triangle.name;
 
     render() {
-        const width = 5;
-        const height = 5;
-        const fill = "black";
+        const width = this.props.size;
+        const height = this.props.size;
+        const fill = this.props.color;
     return (
-        <svg width={width} height={height}>
+        <svg width={width} height={height} stroke="black">
             <path
                 fill={fill}
                 //d={`M 0 0 L ${width} 0 L ${width/2} ${height} L 0 0`}

@@ -9,3 +9,7 @@
     border-style: solid;
     border-width: 2px;
 }
+
+.post-tag {
+    border-radius: 20px;
+}

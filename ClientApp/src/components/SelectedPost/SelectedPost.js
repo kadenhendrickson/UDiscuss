@@ -14,13 +14,16 @@ export class SelectedPost extends Component {
     static displayName = SelectedPost.name;
 
     render() {
+        const st = {float: 'right'};
         return (
             <div className="post-border border-color">
-                <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago"/>
-                <SelectedPostTitle title = "This is a title"/>
-                <SelectedPostBody body="this is the body............ blah blah blah asdf asdf;lajsdflkaj;sal;s fjasdfasdf"/>
-                <SelectedPostVoteButton upvotes={5} isToggled={false}/>
-                <SelectedPostTag tagTitle="Logistics"/>
+                <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
+                <SelectedPostTitle title="This is a title" />
+                <SelectedPostBody body="this is the body............ blah blah blah asdf asdf;lajsdflkaj;sal;s fjasdfasdf" />
+                <div style={st}>
+                    <SelectedPostTag tagTitle="Logistics" />
+                </div>
+                <SelectedPostVoteButton upvotes={7} isToggled={false} />
             </div>
         );
     }
