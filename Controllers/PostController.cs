@@ -11,6 +11,19 @@ namespace UDiscuss.Controllers;
 public class PostController : ControllerBase
 {
 
+    public class PostDTO
+    {
+        public string title { get; set; } = null!;
+        public string category { get; set; } = null!;
+        public DateTime dateCreated { get; set; }
+        public string body { get; set; } = null!;
+        public string authorFName { get; set; } = null!;
+        public string authorLName { get; set; } = null!;
+        public uint relativeID { get; set; }
+
+    }
+
+
     private readonly ILogger<PostController> _logger;
 
 
@@ -34,33 +47,65 @@ public class PostController : ControllerBase
 
     /// <summary>
     /// This will get all of the posts currently in the database.
+    /// 
+    /// GET /post
     /// </summary>
     /// <returns>IEnumerables of posts</returns>
     [HttpGet]
-    public IEnumerable<Post> Get()
+    public IEnumerable<PostDTO> Get()
     {
-        List<Post> posts = new(); 
+        List<PostDTO> posts;
         using (mainContext db = new mainContext())
         {
-            var query = db.Posts;
-            foreach(var post in query)
-            {
-                Post p = new();
-                p.Title = post.Title;
-                p.AuthorId = post.AuthorId;
-                p.DateCreated = post.DateCreated;
-                p.Body = post.Body;
-                p.CategoryId = post.CategoryId;
-
-                posts.Add(p);
+            posts = (from p in db.Posts
+                    select new PostDTO()
+                    {
+                        title = p.Title,
+                        category = p.Category.Name,
+                        dateCreated = p.DateCreated,
+                        body = p.Body,
+                        authorFName = p.Author.FirstName,
+                        authorLName = p.Author.LastName,
+                        relativeID = p.RelativeId,
+                    }).ToList<PostDTO>(); 
             }
-        }
+
         return posts;
     }
 
     [HttpPost]
-    public bool Post(string text)
+    public void Post(PostCreateDTO pDTO)
     {
-        return false;
+        using mainContext db = new();
+
+        uint catID = (from d in db.PostCategories
+                         where d.Name == pDTO.category && d.ClassId == pDTO.classID
+                         select d.CategoryId).First();
+
+        uint nextRelativeID = (from po in db.Posts
+                               where po.ClassId == pDTO.classID
+                               select po.RelativeId).Max() + 1;
+        Post p = new()
+        {
+            AuthorId = pDTO.authorID,
+            Body = pDTO.body,
+            Title = pDTO.title,
+            ClassId = pDTO.classID,
+            CategoryId = catID,
+            DateCreated = DateTime.Now,
+            RelativeId = nextRelativeID
+        };
+
+        db.Posts.Add(p);
+        db.SaveChanges();
+    }
+
+    public class PostCreateDTO
+    {
+        public string title { get; set; } = null!;
+        public string category { get; set; } = null!;
+        public string body { get; set; } = null!;
+        public uint authorID { get; set; }
+        public uint classID { get; set; }
     }
 }
