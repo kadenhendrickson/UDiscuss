@@ -46,18 +46,19 @@ public class PostController : ControllerBase
     //}
 
     /// <summary>
-    /// This will get all of the posts currently in the database.
+    /// This will get all of the posts in a certain class
     /// 
-    /// GET /post
+    /// GET /post/{classID}
     /// </summary>
     /// <returns>IEnumerables of posts</returns>
     [HttpGet]
-    public IEnumerable<PostDTO> Get()
+    public IEnumerable<PostDTO> Get(uint classID)
     {
         List<PostDTO> posts;
         using (mainContext db = new mainContext())
         {
             posts = (from p in db.Posts
+                    where p.ClassId == classID
                     select new PostDTO()
                     {
                         title = p.Title,
