@@ -4,8 +4,8 @@ export class Triangle extends Component {
   static displayName = Triangle.name;
 
     render() {
-        const width = this.props.size;
-        const height = this.props.size;
+        const width = this.props.width;
+        const height = this.props.height;
         const fill = this.props.color;
     return (
         <svg width={width} height={height} stroke="black">

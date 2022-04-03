@@ -6,6 +6,8 @@ import { SelectedPostTitle } from './SelectedPost/SelectedPostTitle';
 import { SelectedPostBody } from './SelectedPost/SelectedPostBody';
 import { SelectedPostHeader } from './SelectedPost/SelectedPostHeader';
 import { SelectedPost } from './SelectedPost/SelectedPost';
+import { ProfileInformation } from './Settings/ProfileInformation';
+import { EmailNotifications } from './Settings/EmailNotifications';
 import { Triangle } from './Triangle';
 
 export class Counter extends Component {
@@ -29,12 +31,10 @@ export class Counter extends Component {
             <h1>Triangle</h1>
             <Triangle size={20} color="red"/>
 
-
-            <SelectedPost/>
-            <SelectedPostVoteButton upvotes={5} isToggled={true} />
-            <SelectedPostTitle title="this is a title" />
-            <SelectedPostBody body="this is the body.............." />
-            <SelectedPostHeader postType="Question" author="Lucas Katsanevas" timeSincePost = "2 hours ago"/>
+            
+            <SelectedPost />
+            <ProfileInformation />
+            <EmailNotifications emailType="self" howOften="hourly" receiveAnnouncments={true}/>
 
             <p className="">This is a simple example of a React component.</p>
 

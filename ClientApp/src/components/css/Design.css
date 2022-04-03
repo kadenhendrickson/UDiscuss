@@ -13,3 +13,15 @@
 .post-tag {
     border-radius: 20px;
 }
+
+.options-save-button {
+    border-radius: 10px;
+    background-color: #FF9797;
+    border-color: #CC0000;
+
+}
+
+.options-box {
+    border-radius: 20px;
+    border: 2px solid #CC0000;
+}
