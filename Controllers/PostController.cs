@@ -24,13 +24,24 @@ public class PostController : ControllerBase
     }
 
 
-    private readonly ILogger<PostController> _logger;
+    protected mainContext db;
 
 
-    public PostController(ILogger<PostController> logger)
-    {
-        _logger = logger;
+    public PostController() 
+    { 
+        db = new mainContext();
     }
+
+    /// <summary>
+    /// This method will allow us to use a mock database when running
+    /// our API tests.
+    /// </summary>
+    /// <param name="mockContext">The mock database context.</param>
+    public void UseContext(mainContext mockContext)
+    {
+        db = mockContext;
+    }
+
 
     ///// <summary>
     ///// This will return a post with the matching id or null if the post
@@ -55,21 +66,19 @@ public class PostController : ControllerBase
     public IEnumerable<PostDTO> Get(uint classID)
     {
         List<PostDTO> posts;
-        using (mainContext db = new mainContext())
-        {
-            posts = (from p in db.Posts
-                    where p.ClassId == classID
-                    select new PostDTO()
-                    {
-                        title = p.Title,
-                        category = p.Category.Name,
-                        dateCreated = p.DateCreated,
-                        body = p.Body,
-                        authorFName = p.Author.FirstName,
-                        authorLName = p.Author.LastName,
-                        relativeID = p.RelativeId,
-                    }).ToList<PostDTO>(); 
-            }
+        posts = (from p in db.Posts
+                 where p.ClassId == classID
+                 select new PostDTO()
+                 {
+                     title = p.Title,
+                     category = p.Category.Name,
+                     dateCreated = p.DateCreated,
+                     body = p.Body,
+                     authorFName = p.Author.FirstName,
+                     authorLName = p.Author.LastName,
+                     relativeID = p.RelativeId,
+                 }).ToList<PostDTO>();
+
 
         return posts;
     }
@@ -77,11 +86,10 @@ public class PostController : ControllerBase
     [HttpPost]
     public void Post(PostCreateDTO pDTO)
     {
-        using mainContext db = new();
 
         uint catID = (from d in db.PostCategories
-                         where d.Name == pDTO.category && d.ClassId == pDTO.classID
-                         select d.CategoryId).First();
+                      where d.Name == pDTO.category && d.ClassId == pDTO.classID
+                      select d.CategoryId).First();
 
         uint nextRelativeID = (from po in db.Posts
                                where po.ClassId == pDTO.classID

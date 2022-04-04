@@ -23,5 +23,7 @@ namespace UDiscuss.Models
         public virtual PostCategory Category { get; set; } = null!;
         public virtual Class Class { get; set; } = null!;
         public virtual ICollection<Reply> Replies { get; set; }
+
+ 
     }
 }
