@@ -1,0 +1,27 @@
+﻿/* Contains all the colors needed for dark theme */
+
+
+.bottom-border-red{
+    border-bottom: 1px solid #CC0000;
+}
+
+.post-border {
+    border-style: solid;
+    border-width: 2px;
+}
+
+.post-tag {
+    border-radius: 20px;
+}
+
+.options-save-button {
+    border-radius: 10px;
+    background-color: #FF9797;
+    border-color: #CC0000;
+
+}
+
+.options-box {
+    border-radius: 20px;
+    border: 2px solid #CC0000;
+}

@@ -3,6 +3,7 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import './css/LightTheme.css';
+import UtahU from './Images/UtahU.png';
     
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -27,7 +28,7 @@ export class NavMenu extends Component {
       <header>
             <Navbar className="underline-nav secondary-color navbar-expand-sm navbar-toggleable-sm ng-white box-shadow mb-3" light>
           <Container>
-            <NavbarBrand tag={Link} to="/">UDiscuss</NavbarBrand>
+                    <NavbarBrand tag={Link} to="/"><img style={{ 'margin-bottom': '5px', 'margin-right': '3px',width: "20px", height: '20px' }} src={UtahU}/>Discuss</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
