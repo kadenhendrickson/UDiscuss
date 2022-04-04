@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import './../css/LightTheme.css';
 import './../css/Design.css';
-import { SelectedPostVoteButton } from './SelectedPostVoteButton';
-import { SelectedPostTitle } from './SelectedPostTitle';
-import { SelectedPostBody } from './SelectedPostBody';
-import { SelectedPostHeader } from './SelectedPostHeader';
-import { SelectedPostTag } from './SelectedPostTag';
+import Checkmark from '../Images/Checkmark.png';
+//<img class="img-fluid" src={Checkmark} alt="checkmark" />
+
 /*
- * Represents a post's body
+ * Represents a solution's body
  *  
  * */
-export class SelectedPost extends Component {
-    static displayName = SelectedPost.name;
+export class SolutionBox extends Component {
+    static displayName = SolutionBox.name;
 
     render() {
+        const st = {float: 'right'};
         return (
             <div className="post-border border-color w-50">
                 <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
@@ -30,5 +29,3 @@ export class SelectedPost extends Component {
         );
     }
 }
-
-

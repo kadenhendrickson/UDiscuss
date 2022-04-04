@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Triangle } from './../Triangle';
 import './../css/LightTheme.css';
 /*
- * Represents an upvote button which user can click to toggle their vote.
+ * Represents a vote button which user can click to toggle their vote.
  *  
  * */
 export class SelectedPostVoteButton extends Component {
@@ -39,9 +39,9 @@ export class SelectedPostVoteButton extends Component {
         let arrow;
 
         if (this.state.isToggled)
-            arrow = <Triangle width={30} height={18} color="#CC0000" />;
+            arrow = <Triangle width={30} height={18} color="#CC0000" isUp={true}/>;
         else
-            arrow = <Triangle width={30} height={18} color="#CECECE"/>;
+            arrow = <Triangle width={30} height={18} color="#CECECE" isUp={true}/>;
         return (
             <div>
                 <div onClick={this.toggleUpvote}>

@@ -31,7 +31,7 @@ export class ProfileInformation extends Component {
 
     render() {
         return (
-            <div className="options-box secondary-color w-50">
+            <div className="options-box secondary-color w-50 m-2">
                 <h4 className="d-flex justify-content-center p-2"> Profile Information </h4>
                 <br />
                 <div className="w-50 d-flex justify-content-center" style={{ margin: '0 auto', position: 'relative' }}>

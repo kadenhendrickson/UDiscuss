@@ -8,6 +8,7 @@ import { SelectedPostHeader } from './SelectedPost/SelectedPostHeader';
 import { SelectedPost } from './SelectedPost/SelectedPost';
 import { ProfileInformation } from './Settings/ProfileInformation';
 import { EmailNotifications } from './Settings/EmailNotifications';
+import { CommentVoteButton } from './CommentVoteButton';
 import { Triangle } from './Triangle';
 
 export class Counter extends Component {
@@ -35,6 +36,9 @@ export class Counter extends Component {
             <SelectedPost />
             <ProfileInformation />
             <EmailNotifications emailType="self" howOften="hourly" receiveAnnouncments={true}/>
+
+            <CommentVoteButton voteCount={4} isUpToggled={true} isDownToggled={false} />
+
 
             <p className="">This is a simple example of a React component.</p>
 

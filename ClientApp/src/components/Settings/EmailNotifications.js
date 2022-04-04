@@ -12,7 +12,7 @@ export class EmailNotifications extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { emailType: this.props.emailType, howOften: this.props.howOften, receiveAnnouncments: this.props.receiveAnnouncments };
+        this.state = { emailType: this.props.emailType, howOften: this.props.howOften, receiveAnnouncements: this.props.receiveAnnouncements };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -20,14 +20,15 @@ export class EmailNotifications extends Component {
 
     handleSubmit(event) {
         alert('emailType: ' + this.state.emailType + '\n No more than one per: ' + this.state.howOften
-            + 'receiveAnnouncements: ' + this.state.receiveAnnouncments);
+            + 'receiveAnnouncements: ' + this.state.receiveAnnouncements);
         event.preventDefault();
     }
 
     handleInputChange(event) {
-        const testing = event.name;
+        const testing = event.target.tagName;
         const target = event.target;
-        let value = target.value;
+        let value;
+        const name = target.name;
         // Check if it was the checkbox or not.
         if (target.type === 'checkbox') {
             value = target.checked;
@@ -37,14 +38,14 @@ export class EmailNotifications extends Component {
             // Must be one of the dropdowns.
             value = target.value;
         }
-        const name = target.name;
+        
 
         this.setState({[name]: value});
     }
 
     render() {
         return (
-            <div className="options-box secondary-color w-50">
+            <div className="options-box secondary-color w-50 m-2">
                 <h4 className="d-flex justify-content-center p-2"> Email Notifications </h4>
                 <br />
                 <div className="w-50 d-flex justify-content-center" style={{ margin: '0 auto', position: 'relative' }}>
@@ -52,7 +53,7 @@ export class EmailNotifications extends Component {
                         <label style={{ float: 'right' }}>
                             Type: &emsp;
 
-                            <select value={this.state.emailType} onChange={this.handleInputChange}>
+                            <select value={this.state.emailType} name="emailType" onChange={this.handleInputChange}>
                                 <option value="none">None</option>
                                 <option value="self-and-instructors">Instructors and Mine Only</option>
                                 <option value="self">Mine Only</option>
@@ -66,7 +67,7 @@ export class EmailNotifications extends Component {
 
                         <label style={{ float: 'right' }}>
                             No more than one per: &emsp;
-                            <select value={this.state.howOften} onChange={this.handleInputChange}>
+                            <select value={this.state.howOften} name="howOften" onChange={this.handleInputChange}>
                             
                             <option value="hourly">Hour</option>
                             <option value="6-hours">6 hours</option>
@@ -85,9 +86,9 @@ export class EmailNotifications extends Component {
                         <label style={{ float: 'right' }}>
                             Get All Instructor Announcements: &nbsp;
                                 <input
-                                    name="instructorAnnouncments"
+                                name="receiveAnnouncements"
                                     type="checkbox"
-                                    checked={this.state.receiveAnnouncments}
+                                checked={this.state.receiveAnnouncements}
                                     onChange={this.handleInputChange} />
                         </label>
 
