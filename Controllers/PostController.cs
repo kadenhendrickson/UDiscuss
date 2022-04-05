@@ -62,7 +62,7 @@ public class PostController : ControllerBase
     /// GET /post/{classID}
     /// </summary>
     /// <returns>IEnumerables of posts</returns>
-    [HttpGet]
+    [HttpGet("{classID}")]
     public IEnumerable<PostDTO> Get(uint classID)
     {
         List<PostDTO> posts;
