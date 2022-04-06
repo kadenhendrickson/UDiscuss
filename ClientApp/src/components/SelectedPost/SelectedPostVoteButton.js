@@ -44,10 +44,10 @@ export class SelectedPostVoteButton extends Component {
             arrow = <Triangle width={30} height={18} color="#CECECE" isUp={true}/>;
         return (
             <div>
-                <div onClick={this.toggleUpvote}>
+                <div className="d-inline-flex" onClick={this.toggleUpvote}>
                     {arrow}
                 </div>
-                <h5 style={{ 'padding-left': '9px' }}>{this.state.upvotes}</h5>
+                <h5 className="m-0 text-center">{this.state.upvotes}</h5>
             </div>
         );
     }

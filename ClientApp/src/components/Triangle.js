@@ -12,7 +12,7 @@ export class Triangle extends Component {
         {
             return (
                 <svg width={width} height={height} stroke="black">
-                    <path
+                    <path role="button"
                         fill={fill}
                         d={`M ${width}  ${height} L 0 ${height} L ${width / 2} 0 Z`}
                     />
@@ -23,7 +23,7 @@ export class Triangle extends Component {
         {
             return (
                 <svg width={width} height={height} stroke="black">
-                    <path
+                    <path role="button"
                         fill={fill}
                         d={`M 0 0 L ${width} 0 L ${width / 2} ${height} L 0 0`}
                     />
