@@ -17,13 +17,13 @@ export class SolutionBoxHeader extends Component {
         if (this.props.isVerified) {
             solutionBoxTitle =
                 <div>
-                <div className="d-inline-block">
-                    <h6> Verified Solution &emsp;</h6>
-                </div>
+                    <div className="d-inline-block">
+                        <h6> Verified Solution &emsp;</h6>
+                    </div>
 
-                <div className="d-inline-block">
-                    <img src={Checkmark} width={20} height={20} alt="checkmark" />
-                </div>
+                    <div className="d-inline-block">
+                        <img src={Checkmark} width={20} height={20} alt="checkmark" />
+                    </div>
                 </div>
         }
         else {
@@ -31,11 +31,11 @@ export class SolutionBoxHeader extends Component {
         }
         return (
             <div className="secondary-color underline-nav">
-                <div style={{ 'margin-right': '10px', 'margin-left': '10px' }}>
+                <div style={{ padding: '5px' }}>
                     <h6 style={{ float: 'right' }}>{this.props.timeSincePost}</h6>
                     {solutionBoxTitle}
-                </div>
-            </div>
+                </div >
+            </div >
         );
     }
 }
