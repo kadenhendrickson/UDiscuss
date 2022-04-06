@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 namespace UDiscuss.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("post")]
 public class PostController : ControllerBase
 {
 
     public class PostDTO
     {
+        public uint ID { get; set; }
         public string title { get; set; } = null!;
         public string category { get; set; } = null!;
         public DateTime dateCreated { get; set; }
@@ -62,7 +63,8 @@ public class PostController : ControllerBase
     /// GET /post/{classID}
     /// </summary>
     /// <returns>IEnumerables of posts</returns>
-    [HttpGet("{classID}")]
+    [HttpGet]
+    [Route("{classID}")]
     public IEnumerable<PostDTO> Get(uint classID)
     {
         List<PostDTO> posts;
@@ -70,6 +72,7 @@ public class PostController : ControllerBase
                  where p.ClassId == classID
                  select new PostDTO()
                  {
+                     ID = p.PostId,
                      title = p.Title,
                      category = p.Category.Name,
                      dateCreated = p.DateCreated,
@@ -83,23 +86,29 @@ public class PostController : ControllerBase
         return posts;
     }
 
-    [HttpPost]
-    public void Post(PostCreateDTO pDTO)
+    [HttpPut("{classID}")]
+    public void Post(uint classID, [FromBody]PostCreateDTO pDTO)
     {
 
         uint catID = (from d in db.PostCategories
-                      where d.Name == pDTO.category && d.ClassId == pDTO.classID
+                      where d.Name == pDTO.category && d.ClassId == classID
                       select d.CategoryId).First();
 
-        uint nextRelativeID = (from po in db.Posts
-                               where po.ClassId == pDTO.classID
-                               select po.RelativeId).Max() + 1;
+        uint nextRelativeID = 0;
+        var query = (from po in db.Posts
+                               where po.ClassId == classID
+                               select po.RelativeId);
+        if (query.Any())
+        {
+            nextRelativeID = query.Max() + 1;
+        }
+
         Post p = new()
         {
             AuthorId = pDTO.authorID,
             Body = pDTO.body,
             Title = pDTO.title,
-            ClassId = pDTO.classID,
+            ClassId = classID,
             CategoryId = catID,
             DateCreated = DateTime.Now,
             RelativeId = nextRelativeID
@@ -115,6 +124,5 @@ public class PostController : ControllerBase
         public string category { get; set; } = null!;
         public string body { get; set; } = null!;
         public uint authorID { get; set; }
-        public uint classID { get; set; }
     }
 }

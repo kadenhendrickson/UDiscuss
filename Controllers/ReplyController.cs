@@ -5,7 +5,7 @@ using UDiscuss.Models;
 namespace UDiscuss.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("reply")]
 public class ReplyController : ControllerBase
 {
 
@@ -20,8 +20,8 @@ public class ReplyController : ControllerBase
 
     public class ReplyDTO
     {
-        public uint ID { get; set; }
-        public uint? parentReplyID { get; set; }
+        public uint id { get; set; }
+        //public uint? parentReplyID { get; set; }
         public string authorFName { get; set; } = null!;
         public string authorLName { get; set; } = null!;
         public DateTime dateCreated { get; set; }
@@ -31,23 +31,21 @@ public class ReplyController : ControllerBase
 
     public class ReplyCreateDTO
     {
-        public uint postID { get; set; }
         //public uint? parentReplyID { get; set; }
         public uint authorID { get; set; }
-        public DateTime dateCreated { get; set; }
         public string body { get; set; } = null!;
     }
 
     [HttpGet("{postID}")]
     public IEnumerable<ReplyDTO> Get(uint postID)
     {
-        List<ReplyDTO> posts;
-        posts = (from r in db.Replies
+        List<ReplyDTO> replies;
+        replies = (from r in db.Replies
                  where r.PostId == postID
                  select new ReplyDTO()
                  {
-                    ID = r.ReplyId,
-                    parentReplyID = r.ParentReply,
+                     id = r.ReplyId,
+                     //parentReplyID = r.ParentReply,
                      body = r.Body,
                      authorFName = r.Author.FirstName,
                      authorLName = r.Author.LastName,
@@ -56,15 +54,15 @@ public class ReplyController : ControllerBase
                  }).ToList<ReplyDTO>();
 
 
-        return posts;
+        return replies;
     }
 
-    [HttpPost]
-    public void CreateReply(ReplyCreateDTO rDTO)
+    [HttpPut("{postID}")]
+    public void CreateReply(uint postID, [FromBody] ReplyCreateDTO rDTO)
     {
         Reply r = new()
         {
-            PostId = rDTO.postID,
+            PostId = postID,
             AuthorId = rDTO.authorID,
             Body = rDTO.body,
         };

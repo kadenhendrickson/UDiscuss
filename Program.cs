@@ -23,9 +23,10 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapFallbackToFile("index.html");;
 
