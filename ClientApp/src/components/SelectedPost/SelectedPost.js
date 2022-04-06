@@ -22,7 +22,7 @@ export class SelectedPost extends Component {
                 <div style={{float: 'right', margin: '10px'}}>
                     <SelectedPostTag tagTitle="Logistics" />
                 </div>
-                <div style={{margin: '10px' }}>
+                <div className="d-inline-block m-1">
                     <SelectedPostVoteButton upvotes={7} isToggled={false} />
                 </div>
                 
