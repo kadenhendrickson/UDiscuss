@@ -13,12 +13,16 @@ import { SelectedPostTag } from './SelectedPostTag';
 export class SelectedPost extends Component {
     static displayName = SelectedPost.name;
 
+    constructor(props) {
+        super(props)
+    }
+
     render() {
         return (
-            <div className="post-border border-color w-50">
+            <div className="post-border border-color">
                 <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
-                <SelectedPostTitle title="This is a title"/>
-                <SelectedPostBody body="this is the body............ blah blah blah blah blah blah blah blah blah  blah blah blah  blah blah blah  blah blah blah  blah blah blah  blah blah blah asdf asdf;lajsdflkaj;sal;s fjasdfasdf" />
+                <SelectedPostTitle title={this.props.post.title}/>
+                <SelectedPostBody body={this.props.post.body} />
                 <div style={{float: 'right', margin: '10px'}}>
                     <SelectedPostTag tagTitle="Logistics" />
                 </div>
