@@ -1,33 +1,51 @@
 import React, { Component } from 'react';
 import './NavMenu.css';
 import './css/LightTheme.css';
+import { SelectedPostVoteButton } from './SelectedPost/SelectedPostVoteButton';
+import { SelectedPostTitle } from './SelectedPost/SelectedPostTitle';
+import { SelectedPostBody } from './SelectedPost/SelectedPostBody';
+import { SelectedPostHeader } from './SelectedPost/SelectedPostHeader';
+import { SelectedPost } from './SelectedPost/SelectedPost';
+import { ProfileInformation } from './Settings/ProfileInformation';
+import { EmailNotifications } from './Settings/EmailNotifications';
+import { CommentVoteButton } from './CommentVoteButton';
+import { Triangle } from './Triangle';
 
 export class Counter extends Component {
-  static displayName = Counter.name;
+    static displayName = Counter.name;
 
-  constructor(props) {
-    super(props);
-    this.state = { currentCount: 0 };
-    this.incrementCounter = this.incrementCounter.bind(this);
-  }
+    constructor(props) {
+        super(props);
+        this.state = { currentCount: 0 };
+        this.incrementCounter = this.incrementCounter.bind(this);
+    }
 
-  incrementCounter() {
-    this.setState({
-      currentCount: this.state.currentCount + 1
-    });
-  }
+    incrementCounter() {
+        this.setState({
+            currentCount: this.state.currentCount + 1
+        });
+    }
 
-  render() {
-    return (
-      <div>
-        <h1>Counter</h1>
+    render() {
+        return (
+            <div>
+                <h1>Triangle</h1>
+                <Triangle size={20} color="red" />
 
-            <p className="">This is a simple example of a React component.</p>
 
-        <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
+                <SelectedPost />
+                <ProfileInformation />
+                <EmailNotifications emailType="self" howOften="hourly" receiveAnnouncments={true} />
 
-        <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button>
-      </div>
-    );
-  }
+                <CommentVoteButton voteCount={4} isUpToggled={true} isDownToggled={false} />
+
+
+                <p className="">This is a simple example of a React component.</p>
+
+                <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
+
+                <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button>
+            </div>
+        );
+    }
 }

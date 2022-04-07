@@ -5,20 +5,23 @@ import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { GetPosts } from './components/GetPosts';
 import { Counter } from './components/Counter';
+import { Settings } from './components/Settings/Settings';
+import { Help } from './components/Help/Help';
 
 import './custom.css'
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = App.name;
 
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-            <Route path='/get-posts' component={GetPosts} />
-      </Layout>
-    );
-  }
+    render() {
+        return (
+            <Layout>
+                <Route exact path='/' component={Home} />
+                <Route path='/counter' component={Counter} />
+                <Route path='/fetch-data' component={FetchData} />
+                <Route path='/settings' component={Settings} />
+                <Route path='/help' component={Help} />
+            </Layout>
+        );
+    }
 }
