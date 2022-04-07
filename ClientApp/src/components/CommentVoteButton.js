@@ -12,7 +12,7 @@ export class CommentVoteButton extends Component {
         super(props);
 
         // has two props representing the number of upvotes and if it is currently toggled.
-        this.state = { upvotes: props.voteCount, isUpToggled: props.isUpToggled, isDownToggled: props.isDownToggled };
+        this.state = { upvotes: props.upvotes, isUpToggled: props.isUpToggled, isDownToggled: props.isDownToggled };
         this.toggleUpvote = this.toggleUpvote.bind(this);
         this.toggleDownvote = this.toggleDownvote.bind(this);
     }
@@ -89,12 +89,12 @@ export class CommentVoteButton extends Component {
 
 
         return (
-            <div>
-                <div onClick={this.toggleUpvote}>
+            <div className="d-inline-block m-1" style={{ margin: '10px' }}>
+                <div className="d-inline-flex" onClick={this.toggleUpvote}>
                     {upArrow}
                 </div>
-                <h6 className="m-0" style={{ 'padding-left': '7px' }}>{this.state.upvotes}</h6>
-                <div onClick={this.toggleDownvote}>
+                <h6 className="m-0 text-center">{this.state.upvotes}</h6>
+                <div className="d-inline-flex" onClick={this.toggleDownvote}>
                     {downArrow}
                 </div>
             </div>

@@ -9,6 +9,7 @@ import { SelectedPost } from './SelectedPost/SelectedPost';
 import { ProfileInformation } from './Settings/ProfileInformation';
 import { EmailNotifications } from './Settings/EmailNotifications';
 import { CommentVoteButton } from './CommentVoteButton';
+import { SolutionBox } from './SolutionBox/SolutionBox';
 import { Triangle } from './Triangle';
 
 export class Counter extends Component {
@@ -37,7 +38,10 @@ export class Counter extends Component {
                 <ProfileInformation />
                 <EmailNotifications emailType="self" howOften="hourly" receiveAnnouncments={true} />
 
+
                 <CommentVoteButton voteCount={4} isUpToggled={true} isDownToggled={false} />
+
+                <SolutionBox isVerified={true} author="Professor Brown" />
 
 
                 <p className="">This is a simple example of a React component.</p>

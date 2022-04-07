@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './../css/LightTheme.css';
 import './../css/Design.css';
-import Checkmark from '../Images/Checkmark.png';
-//<img class="img-fluid" src={Checkmark} alt="checkmark" />
+import { CommentVoteButton } from './../CommentVoteButton'
+import { SolutionBoxHeader } from './SolutionBoxHeader'
+import { SolutionBoxText } from './SolutionBoxText'
+import { SolutionBoxAuthor } from './SolutionBoxAuthor'
 
 /*
  * Represents a solution's body
@@ -12,19 +14,16 @@ export class SolutionBox extends Component {
     static displayName = SolutionBox.name;
 
     render() {
-        const st = {float: 'right'};
         return (
             <div className="post-border border-color w-50">
-                <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
-                <SelectedPostTitle title="This is a title"/>
-                <SelectedPostBody body="this is the body............ blah blah blah blah blah blah blah blah blah  blah blah blah  blah blah blah  blah blah blah  blah blah blah  blah blah blah asdf asdf;lajsdflkaj;sal;s fjasdfasdf" />
-                <div style={{float: 'right', margin: '10px'}}>
-                    <SelectedPostTag tagTitle="Logistics" />
+                <SolutionBoxHeader timeSincePost="2 hrs ago" isVerified={true} timeSincePost="2 hrs ago" />
+                <div className="m-2">
+                    <SolutionBoxText contents="The answer would be blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" />
                 </div>
-                <div style={{margin: '10px' }}>
-                    <SelectedPostVoteButton upvotes={7} isToggled={false} />
+                <div className="m-2" style={{ float: 'right'}}>
+                    <SolutionBoxAuthor author="Professor Brown" />
                 </div>
-                
+                <CommentVoteButton upvotes={7} isUpToggled={false} isDownToggled={false} />
             </div>
         );
     }

@@ -34,7 +34,6 @@ export class SelectedPostVoteButton extends Component {
         }
     }
 
-    // TODO - fix so number isn't centered based off of padding
     render() {
         let arrow;
 
@@ -43,7 +42,7 @@ export class SelectedPostVoteButton extends Component {
         else
             arrow = <Triangle width={30} height={18} color="#CECECE" isUp={true}/>;
         return (
-            <div>
+            <div className="d-inline-block m-1">
                 <div className="d-inline-flex" onClick={this.toggleUpvote}>
                     {arrow}
                 </div>
