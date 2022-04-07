@@ -27,8 +27,8 @@ namespace UDiscuss.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.7-mariadb"));
+                string connectionInfo = File.ReadAllText(@"dbConnection.txt").Trim();
+                optionsBuilder.UseMySql(connectionInfo, Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.7-mariadb"));
             }
         }
 
@@ -64,9 +64,9 @@ namespace UDiscuss.Models
                 entity.HasCharSet("utf8mb4")
                     .UseCollation("utf8mb4_general_ci");
 
-                entity.HasIndex(e => e.CategoryId, "Post_FK");
+                entity.HasIndex(e => e.AuthorId, "Post_FK");
 
-                entity.HasIndex(e => e.AuthorId, "Post_FK_2");
+                entity.HasIndex(e => e.CategoryId, "Post_FK_1");
 
                 entity.HasIndex(e => new { e.ClassId, e.RelativeId }, "Post_UN")
                     .IsUnique();
@@ -101,13 +101,13 @@ namespace UDiscuss.Models
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.AuthorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Post_FK_1");
+                    .HasConstraintName("Post_FK");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Post_FK");
+                    .HasConstraintName("Post_FK_1");
 
                 entity.HasOne(d => d.Class)
                     .WithMany(p => p.Posts)
@@ -150,11 +150,14 @@ namespace UDiscuss.Models
                 entity.HasCharSet("utf8mb4")
                     .UseCollation("utf8mb4_general_ci");
 
-                entity.HasIndex(e => e.PostId, "Reply_FK");
+                entity.HasIndex(e => e.ParentReply, "Reply_FK");
 
-                entity.HasIndex(e => e.ParentReply, "Reply_FK_1");
+                entity.HasIndex(e => e.PostId, "Reply_FK_1");
 
                 entity.HasIndex(e => e.AuthorId, "Reply_FK_2");
+
+                entity.HasIndex(e => new { e.Endorsed, e.PostId }, "Reply_UN")
+                    .IsUnique();
 
                 entity.Property(e => e.ReplyId)
                     .HasColumnType("int(10) unsigned")
@@ -178,18 +181,18 @@ namespace UDiscuss.Models
                     .WithMany(p => p.Replies)
                     .HasForeignKey(d => d.AuthorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Reply_FK_1");
+                    .HasConstraintName("Reply_FK_2");
 
                 entity.HasOne(d => d.ParentReplyNavigation)
                     .WithMany(p => p.InverseParentReplyNavigation)
                     .HasForeignKey(d => d.ParentReply)
-                    .HasConstraintName("Reply_FK_2");
+                    .HasConstraintName("Reply_FK");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Replies)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Reply_FK");
+                    .HasConstraintName("Reply_FK_1");
             });
 
             modelBuilder.Entity<Roster>(entity =>
@@ -233,12 +236,13 @@ namespace UDiscuss.Models
                 entity.HasCharSet("utf8mb4")
                     .UseCollation("utf8mb4_general_ci");
 
+                entity.HasIndex(e => e.Email, "UNIQUE_EMAIL")
+                    .IsUnique();
+
                 entity.Property(e => e.UserId)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("UserID");
-
                 entity.Property(e => e.Email).HasMaxLength(255);
-
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.LastName).HasMaxLength(50);

@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
+import { GetPosts } from './components/GetPosts';
 import { Counter } from './components/Counter';
 import { Settings } from './components/Settings/Settings';
 import { Help } from './components/Help/Help';
