@@ -9,7 +9,7 @@ export class SolutionBoxAuthor extends Component {
     render() {
         return (
             <div>
-                <p className="mr-2">{this.props.author}</p>
+                <p> By {this.props.author}</p>
             </div>
         );
     }

@@ -15,15 +15,17 @@ export class SolutionBox extends Component {
 
     render() {
         return (
-            <div className="post-border border-color w-50">
+            <div className="m-2 post-border border-color w-100 position-relative">
                 <SolutionBoxHeader timeSincePost="2 hrs ago" isVerified={true} timeSincePost="2 hrs ago" />
                 <div className="m-2">
                     <SolutionBoxText contents="The answer would be blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" />
                 </div>
-                <div className="m-2" style={{ float: 'right'}}>
+                <div className="m-2 position-absolute" style={{bottom: '0', right: '0' }}>
                     <SolutionBoxAuthor author="Professor Brown" />
                 </div>
-                <CommentVoteButton upvotes={7} isUpToggled={false} isDownToggled={false} />
+                <div>
+                    <CommentVoteButton upvotes={7} isUpToggled={false} isDownToggled={false} />
+                </div>
             </div>
         );
     }

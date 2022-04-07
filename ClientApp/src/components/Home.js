@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { PostList } from './PostList/PostList'
 import { SelectedPost } from './SelectedPost/SelectedPost'
+import { SolutionBox } from './SolutionBox/SolutionBox';
 
 var posts = [
     { id: 0, title: "Submission Issues", body: "When I make a zip file of my folders to submit and open the solution in visual studio, I get a "},
@@ -14,15 +15,30 @@ export class Home extends Component {
   static displayName = Home.name;
 
     constructor(props) {
-        super(props)
+        super(props);
 
-        this.ListItemHandler = this.ListItemHandler.bind(this)
+        this.ListItemHandler = this.ListItemHandler.bind(this);
+
+        // TEST IS HERE
+        this.getFromDB = this.getFromDB.bind(this);
+
         this.state = {
             selectedPostIndex: 0,
             posts : []
         }
 
     }
+
+
+
+    async getFromDB() {
+        const response = await fetch('/post/1');
+        const data = await response.json();
+        alert(response.json);
+    }
+
+
+
 
 
     ListItemHandler = (index) =>  {
@@ -38,11 +54,14 @@ export class Home extends Component {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4">
-                    <PostList posts={posts} handler={this.ListItemHandler} />
+                    <PostList posts={posts} handler={this.getFromDB} />
                 </div>
                 <div class="col-sm-8">
                     <SelectedPost post={posts[this.state.selectedPostIndex]} />
+                    <SolutionBox isVerified={true} author="Professor Brown" />
                 </div>
+                
+
             </div>
             
       </div>

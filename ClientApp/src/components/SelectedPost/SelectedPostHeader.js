@@ -15,7 +15,7 @@ export class SelectedPostHeader extends Component {
     render() {
         return (
             <div className="secondary-color underline-nav">
-                <div style={{ 'margin-right': '10px', 'margin-left': '10px'}}>
+                <div className="p-1">
                     <h5 style={{ float: 'right' }}>{this.props.timeSincePost}</h5>
                     <h5>{this.props.postType} by {this.props.author}</h5>
                 </div>

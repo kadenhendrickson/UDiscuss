@@ -19,7 +19,7 @@ export class SelectedPost extends Component {
 
     render() {
         return (
-            <div className="post-border border-color">
+            <div className="m-2 post-border border-color w-100">
                 <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
                 <SelectedPostTitle title={this.props.post.title}/>
                 <SelectedPostBody body={this.props.post.body} />
