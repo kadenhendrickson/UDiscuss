@@ -8,6 +8,7 @@ import './css/LightTheme.css';
 import UtahU from './Images/UtahU.png';
 
 export class NavMenu extends Component {
+
     static displayName = NavMenu.name;
 
     constructor(props) {
