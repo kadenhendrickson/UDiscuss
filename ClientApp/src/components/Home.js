@@ -19,7 +19,7 @@ export class Home extends Component {
 
         this.ListItemHandler = this.ListItemHandler.bind(this);
 
-        // TEST IS HERE
+        // Test is this method
         this.getFromDB = this.getFromDB.bind(this);
 
         this.state = {
@@ -30,11 +30,11 @@ export class Home extends Component {
     }
 
 
-
+    // DB TESTING
     async getFromDB() {
         const response = await fetch('/post/1');
         const data = await response.json();
-        alert(response.json);
+        alert(data.at(0).authorFName);
     }
 
 
@@ -42,9 +42,10 @@ export class Home extends Component {
 
 
     ListItemHandler = (index) =>  {
-        this.setState({
-            selectedPostIndex : index,
-        })
+        this.setState({selectedPostIndex: index,});
+
+        // Calling test code right here
+        this.getFromDB();
     }
  
 
@@ -54,7 +55,7 @@ export class Home extends Component {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4">
-                    <PostList posts={posts} handler={this.getFromDB} />
+                    <PostList posts={posts} handler={this.ListItemHandler} />
                 </div>
                 <div class="col-sm-8">
                     <SelectedPost post={posts[this.state.selectedPostIndex]} />
