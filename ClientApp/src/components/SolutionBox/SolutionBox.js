@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import './../css/LightTheme.css';
 import './../css/Design.css';
-import Checkmark from '../Images/Checkmark.png';
 import { CommentVoteButton } from './../CommentVoteButton'
 import { SolutionBoxHeader } from './SolutionBoxHeader'
 import { SolutionBoxText } from './SolutionBoxText'
 import { SolutionBoxAuthor } from './SolutionBoxAuthor'
-//<img class="img-fluid" src={Checkmark} alt="checkmark" />
 
 /*
  * Represents a solution's body
