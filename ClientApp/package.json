@@ -2,6 +2,7 @@
   "name": "udiscuss",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:44495",
   "dependencies": {
     "bootstrap": "^5.1.0",
     "http-proxy-middleware": "^0.19.1",
