@@ -32,9 +32,9 @@ export class Home extends Component {
 
     // DB TESTING
     async getFromDB() {
-        const response = await fetch('/post/1');
-        const data = await response.json();
-        alert(data.at(0).authorFName);
+    //    const response = await fetch('/post/1');
+    //    const data = await response.json();
+    //    alert(data.at(0).authorFName);
     }
 
 
