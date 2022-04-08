@@ -8,8 +8,8 @@ export class PostListItem extends React.Component {
     }
 
     onItemClick = () => {
-        console.log("The key for this postlistitem is ", this.props.post.id)
-        this.props.handler(this.props.post.id)
+        console.log("The key for this postlistitem is ", this.props.idx)
+        this.props.handler(this.props.idx)
     }
 
     render() {
