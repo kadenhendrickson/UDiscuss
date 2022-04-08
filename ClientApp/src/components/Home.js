@@ -3,7 +3,7 @@ import { PostList } from './PostList/PostList'
 import { SelectedPost } from './SelectedPost/SelectedPost'
 import { SolutionBox } from './SolutionBox/SolutionBox';
 
-var posts = [
+var testPosts = [
     { id: 0, title: "Submission Issues", body: "When I make a zip file of my folders to submit and open the solution in visual studio, I get a "},
     { id: 1, title: "Perform Query", body: "I am stuck on trying to figure out how to extract both the whiteplayer name and black player name plus all the other fields from the databse using one select stateme" },
     { id: 2, title: "How do you change your database password", body: "Not too sure why I can't figure this out, but how do you change your database password?" },
@@ -20,51 +20,55 @@ export class Home extends Component {
         this.ListItemHandler = this.ListItemHandler.bind(this);
 
         // Test is this method
-        this.getFromDB = this.getFromDB.bind(this);
+        this.getAllPosts = this.getAllPosts.bind(this);
 
         this.state = {
             selectedPostIndex: 0,
-            posts : []
+            posts: [],
+            loading : true,
         }
 
     }
 
+    componentDidMount() {
+        this.getAllPosts();
+    }
 
     // DB TESTING
-    async getFromDB() {
-    //    const response = await fetch('/post/1');
-    //    const data = await response.json();
-    //    alert(data.at(0).authorFName);
+    async getAllPosts() {
+        const response = await fetch('/post/1');
+        const json = await response.json();
+        this.setState({posts : json, loading : false})
     }
-
-
-
-
 
     ListItemHandler = (index) =>  {
-        this.setState({selectedPostIndex: index,});
-
-        // Calling test code right here
-        this.getFromDB();
+        this.setState({selectedPostIndex: index});
     }
- 
 
     render() {
+        let listContent = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : <PostList posts={this.state.posts} handler={this.ListItemHandler} />;
+
+        let postContent = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : <SelectedPost post={this.state.posts[this.state.selectedPostIndex]} />;
+
+        let solutionContent = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : <SolutionBox isVerified={true} author="Professor Brown" />;
 
     return (
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4">
-                    <PostList posts={posts} handler={this.ListItemHandler} />
+                    {listContent}
                 </div>
                 <div class="col-sm-8">
-                    <SelectedPost post={posts[this.state.selectedPostIndex]} />
-                    <SolutionBox isVerified={true} author="Professor Brown" />
+                    {postContent}
+                    {solutionContent}
                 </div>
-                
-
             </div>
-            
       </div>
     );
   }
