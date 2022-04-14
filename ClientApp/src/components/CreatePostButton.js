@@ -7,8 +7,7 @@ export class CreatePostButton extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { currentCount: 0 };
-        this.buttClick = this.buttClick.bind(this);
+        this.buttonClick = this.buttonClick.bind(this);
     }
 
 
@@ -19,7 +18,7 @@ export class CreatePostButton extends Component {
     render() {
         return (
             <div>
-                <button onclick={this.buttonClick}>Create Post</button>
+                <button className="w-100 btn btn-outline-danger" onclick={this.buttonClick}>Create Post</button>
             </div>
         );
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PostList } from './PostList/PostList'
 import { SelectedPost } from './SelectedPost/SelectedPost'
 import { SolutionBox } from './SolutionBox/SolutionBox';
+import { CreatePostButton } from './CreatePostButton';
 
 var testPosts = [
     { id: 0, title: "Submission Issues", body: "When I make a zip file of my folders to submit and open the solution in visual studio, I get a "},
@@ -65,6 +66,7 @@ export class Home extends Component {
                     {listContent}
                 </div>
                 <div class="col-sm-8">
+                    <CreatePostButton />
                     {postContent}
                     {solutionContent}
                 </div>
