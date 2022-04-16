@@ -18,24 +18,26 @@ export class Welcome extends Component {
                 <h1 className=' text-center'> Welcome To </h1>
 
                 <div className="align-items-center d-flex justify-content-center text-center">
-                    <img className=" m-1 mt-3" height="65px" width="65px" src={UtahU} />
+                    <img className=" m-1" height="65px" width="65px" src={UtahU} />
                     <p className='display-1 b text-center'> Discuss </p>
 
                 </div>
-
-                <img className="float-right img-thumbnail img-fluid mx-auto d-block" src={Mountains} alt="Salt Lake City mountains" />
-
-                <div className="mt-3 border secondary-color p-3 h-100 d-flex flex-column">
-                    <p>
+                <div className="text-center w-75 justify-content-center d-block" style={{ margin: '0 auto', position: 'relative' }}>
+                    <h5>
                         Home of the university's new online discussion forum. Here is where
                         you can post questions to your class, participate in discussions, and
-                        view your professors' announcements. Please log in or sign up to get started!
-                        </p>
+                        view your professors' announcements. Please log in or sign up to start!
+                    </h5>
 
                 </div>
 
-                <button class="btn m-2 w-25 btn-danger mt-auto">Login</button>
-                <button class="btn m-2 w-50 btn-outline-danger mt-auto">Sign Up</button>
+                <img className="w-75 img-thumbnail img-fluid mx-auto d-block" src={Mountains} alt="Salt Lake City mountains" />
+
+                <div className=" w-75 justify-content-center btn-group d-flex" role="group" style={{ margin: '0 auto', position: 'relative' }}>
+                    <button class="btn m-1 accent-color text-white">Login</button>
+                    <button class="btn m-1 white-with-red-outline-button">Sign Up</button>
+
+                </div>
 
             </div>
         );

@@ -11,6 +11,8 @@ import { EmailNotifications } from './Settings/EmailNotifications';
 import { CommentVoteButton } from './CommentVoteButton';
 import { SolutionBox } from './SolutionBox/SolutionBox';
 import { Triangle } from './Triangle';
+import { CreatePostButton } from './CreatePostButton';
+import { CreatePost } from './CreatePost/CreatePost';
 
 export class Counter extends Component {
     static displayName = Counter.name;
@@ -30,25 +32,8 @@ export class Counter extends Component {
     render() {
         return (
             <div>
-                <h1>Triangle</h1>
-                <Triangle size={20} color="red" />
-
-
-                <SelectedPost />
-                <ProfileInformation />
-                <EmailNotifications emailType="self" howOften="hourly" receiveAnnouncments={true} />
-
-
-                <CommentVoteButton voteCount={4} isUpToggled={true} isDownToggled={false} />
-
-                <SolutionBox isVerified={true} author="Professor Brown" />
-
-
-                <p className="">This is a simple example of a React component.</p>
-
-                <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
-
-                <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button>
+                <CreatePost/>
+ 
             </div>
         );
     }

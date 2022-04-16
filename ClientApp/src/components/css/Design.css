@@ -25,3 +25,9 @@
     border-radius: 20px;
     border: 2px solid #CC0000;
 }
+
+
+.white-with-red-outline-button {
+    border-color: #CC0000;
+    color: red;
+}

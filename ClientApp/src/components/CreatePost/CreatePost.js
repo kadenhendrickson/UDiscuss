@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './../css/LightTheme.css';
 import './../css/Design.css';
+import { Button } from '@material-ui/core';
+
+
 
 /*
  * Component for creating a post
@@ -58,6 +61,13 @@ export class CreatePost extends Component {
                     <form onSubmit={this.handleSubmit}>
 
 
+
+
+
+
+
+
+
                         <label>
                             Share With: &emsp;
                             <select value={this.state.shareWith} name="shareWith" onChange={this.handleInputChange}>
@@ -74,11 +84,15 @@ export class CreatePost extends Component {
                             Title: &emsp;
                             <input type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
                         </label>
+
+                        <br />
+                        <br />
+
                         <textarea className="w-100" value={this.state.body} onChange={this.handleInputChange} />
 
                         <div className="btn-group d-flex" role="group">
-                            <input className="w-100 m-1 btn btn-danger" type="submit" value="Post" />
-                            <input className="w-100 m-1 btn btn-outline-danger" type="submit" value="Cancel" />
+                            <input className="w-100 m-1 btn accent-color text-white" type="submit" value="Post" />
+                            <input className="w-100 m-1 btn white-with-red-outline-button" type="submit" value="Cancel" />
                         </div>
                     </form>
                 </div>
