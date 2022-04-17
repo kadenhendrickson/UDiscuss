@@ -76,7 +76,7 @@ export class Home extends Component {
         else {
             rightPanel =
                 <div>
-                <CreatePost createPostFn={this.createPostClicked}/>
+                <CreatePost SwapOutCreateFn={this.createPostClicked}/>
                 </div>;
         }
 
