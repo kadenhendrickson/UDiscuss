@@ -24,6 +24,7 @@ export class CreatePost extends Component {
 
 
     handleSubmit(event) {
+        this.props.createPostFn();
         alert('share with: ' + this.state.shareWith + '\n is anon: ' + this.state.isAnonymous
             + + ' \nselected tag: ' + this.state.selectedTag + "\n title : " + this.state.title + "\n body: " + this.state.body);
         event.preventDefault();
@@ -60,14 +61,6 @@ export class CreatePost extends Component {
                 <div className="w-100 justify-content-center" style={{ margin: '0 auto', position: 'relative' }}>
                     <form onSubmit={this.handleSubmit}>
 
-
-
-
-
-
-
-
-
                         <label>
                             Share With: &emsp;
                             <select value={this.state.shareWith} name="shareWith" onChange={this.handleInputChange}>
@@ -96,7 +89,6 @@ export class CreatePost extends Component {
                         </div>
                     </form>
                 </div>
-
 
             </div>
         );

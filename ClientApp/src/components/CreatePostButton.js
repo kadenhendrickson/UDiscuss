@@ -18,7 +18,7 @@ export class CreatePostButton extends Component {
     render() {
         return (
             <div>
-                <button className="w-100 btn white-with-red-outline-button" onclick={this.buttonClick}>Create Post</button>
+                
             </div>
         );
     }
