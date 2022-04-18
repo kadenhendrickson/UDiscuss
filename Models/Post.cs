@@ -18,12 +18,11 @@ namespace UDiscuss.Models
         public string Body { get; set; } = null!;
         public uint AuthorId { get; set; }
         public uint RelativeId { get; set; }
+        public bool Anonymous { get; set; }
 
         public virtual User Author { get; set; } = null!;
         public virtual PostCategory Category { get; set; } = null!;
         public virtual Class Class { get; set; } = null!;
         public virtual ICollection<Reply> Replies { get; set; }
-
- 
     }
 }

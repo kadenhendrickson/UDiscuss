@@ -14,7 +14,7 @@ namespace UDiscuss.Models
 
         public uint ClassId { get; set; }
         public string FullName { get; set; } = null!;
-        public string ShortName { get; set; } = null!;
+        public string? ShortName { get; set; }
         public string Semester { get; set; } = null!;
         public short Year { get; set; }
 

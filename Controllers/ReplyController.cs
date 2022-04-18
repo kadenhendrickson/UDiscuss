@@ -5,12 +5,11 @@ using UDiscuss.Models;
 namespace UDiscuss.Controllers;
 
 [ApiController]
-[Route("reply")]
+[Route("/api/reply")]
 public class ReplyController : ControllerBase
 {
 
     protected mainContext db;
-
 
     public ReplyController()
     {
@@ -57,7 +56,7 @@ public class ReplyController : ControllerBase
         return replies;
     }
 
-    [HttpPut("{postID}")]
+    [HttpPost("{postID}")]
     public void CreateReply(uint postID, [FromBody] ReplyCreateDTO rDTO)
     {
         Reply r = new()

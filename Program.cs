@@ -7,7 +7,7 @@ var connectionString = builder.Configuration.GetConnectionString("UDiscussContex
     .AddEntityFrameworkStores<UDiscussContext>();
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 

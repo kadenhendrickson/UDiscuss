@@ -3,38 +3,15 @@ using System;
 using UDiscuss.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using UDiscuss.Controllers.DTOs;
 
 namespace UDiscuss.Controllers;
 
 [ApiController]
-[Route("user")]
+[Route("/api/user")]
 public class UserController : ControllerBase
 {
-
-    public class UserDTO
-    {
-        public string firstName { get; set; } = null!;
-        public string? lastName { get; set; }
-        public string? email { get; set; }
-
-        public ClassDTO[]? classes { get; set; }
-
-}
-
-    public class ClassDTO
-    {
-        public uint id { get; set; }
-        public string fullName { get; set; } = null!;
-        public string shortName { get; set; } = null!;
-        public string semester { get; set; } = null!;
-        public short year { get; set; }
-
-        public string role { get; set; } = null!;
-    }
-
-
     protected mainContext db;
-
 
     public UserController() 
     { 
@@ -46,6 +23,7 @@ public class UserController : ControllerBase
     /// our API tests.
     /// </summary>
     /// <param name="mockContext">The mock database context.</param>
+    [NonAction]
     public void UseContext(mainContext mockContext)
     {
         db = mockContext;
