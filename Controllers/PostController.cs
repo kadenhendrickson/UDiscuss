@@ -3,30 +3,15 @@ using System;
 using UDiscuss.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using UDiscuss.Controllers.DTOs;
 
 namespace UDiscuss.Controllers;
 
 [ApiController]
-[Route("post")]
+[Route("api/post")]
 public class PostController : ControllerBase
 {
-
-    public class PostDTO
-    {
-        public uint ID { get; set; }
-        public string title { get; set; } = null!;
-        public string category { get; set; } = null!;
-        public DateTime dateCreated { get; set; }
-        public string body { get; set; } = null!;
-        public string authorFName { get; set; } = null!;
-        public string authorLName { get; set; } = null!;
-        public uint relativeID { get; set; }
-
-    }
-
-
     protected mainContext db;
-
 
     public PostController() 
     { 
@@ -38,6 +23,7 @@ public class PostController : ControllerBase
     /// our API tests.
     /// </summary>
     /// <param name="mockContext">The mock database context.</param>
+    [NonAction]
     public void UseContext(mainContext mockContext)
     {
         db = mockContext;
@@ -77,19 +63,20 @@ public class PostController : ControllerBase
                      category = p.Category.Name,
                      dateCreated = p.DateCreated,
                      body = p.Body,
-                     authorFName = p.Author.FirstName,
-                     authorLName = p.Author.LastName,
+                     isAnonymous = p.Anonymous,
+                     authorFName = !p.Anonymous ? p.Author.FirstName : null,
+                     authorLName = !p.Anonymous ? p.Author.LastName : null,
                      relativeID = p.RelativeId,
+                     isAnswered = p.Replies.Any(),
                  }).ToList<PostDTO>();
 
 
         return posts;
     }
 
-    [HttpPut("{classID}")]
+    [HttpPost("{classID}")]
     public void Post(uint classID, [FromBody]PostCreateDTO pDTO)
     {
-
         uint catID = (from d in db.PostCategories
                       where d.Name == pDTO.category && d.ClassId == classID
                       select d.CategoryId).First();
@@ -111,18 +98,11 @@ public class PostController : ControllerBase
             ClassId = classID,
             CategoryId = catID,
             DateCreated = DateTime.Now,
-            RelativeId = nextRelativeID
+            RelativeId = nextRelativeID,
+            Anonymous = pDTO.isAnonymous
         };
 
         db.Posts.Add(p);
         db.SaveChanges();
-    }
-
-    public class PostCreateDTO
-    {
-        public string title { get; set; } = null!;
-        public string category { get; set; } = null!;
-        public string body { get; set; } = null!;
-        public uint authorID { get; set; }
     }
 }
