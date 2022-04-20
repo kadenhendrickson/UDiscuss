@@ -7,7 +7,7 @@ import { GetPosts } from './components/GetPosts';
 import { Counter } from './components/Counter';
 import { Settings } from './components/Settings/Settings';
 import { Help } from './components/Help/Help';
-
+import { Welcome } from './components/WelcomePage/Welcome'
 import './custom.css'
 
 export default class App extends Component {
@@ -21,6 +21,7 @@ export default class App extends Component {
                 <Route path='/fetch-data' component={FetchData} />
                 <Route path='/settings' component={Settings} />
                 <Route path='/help' component={Help} />
+                <Route path='/welcome' component={Welcome}/>
             </Layout>
         );
     }
