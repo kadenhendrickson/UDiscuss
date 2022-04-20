@@ -55,13 +55,13 @@ export class CreatePost extends Component {
         // Send request to the DB.
         
         const requestOptions = {
-            method: 'PUT',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPost)
         };
-        fetch('/post/1', requestOptions)
-            .then(response => response.json())
-            .then(data => this.setState({ postId: data.id }));
+        fetch('/api/post/1', requestOptions)
+            .then(response => alert("post created!"))
+            .catch(data => alert("error creating post....."));
             
 
 
@@ -132,7 +132,7 @@ export class CreatePost extends Component {
                         <br />
 
                         <label>
-                            Select a tag: &emsp;
+                            Select a Tag: &emsp;
                             <select value={this.state.selectedTag} name="selectedTag" onChange={this.handleInputChange} required>
                                 <option value="" disabled selected> </option>
                                 <option value="Assignments">assignments</option>
