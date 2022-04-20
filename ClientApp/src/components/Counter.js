@@ -11,7 +11,6 @@ import { EmailNotifications } from './Settings/EmailNotifications';
 import { CommentVoteButton } from './CommentVoteButton';
 import { SolutionBox } from './SolutionBox/SolutionBox';
 import { Triangle } from './Triangle';
-import { CreatePostButton } from './CreatePostButton';
 import { CreatePost } from './CreatePost/CreatePost';
 
 export class Counter extends Component {
@@ -32,7 +31,7 @@ export class Counter extends Component {
     render() {
         return (
             <div>
-                <CreatePost/>
+
  
             </div>
         );
