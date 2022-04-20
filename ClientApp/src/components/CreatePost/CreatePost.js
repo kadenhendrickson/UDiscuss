@@ -17,7 +17,7 @@ export class CreatePost extends Component {
         super(props);
 
         // Can change this slightly later to take arguments -- that way we can do drafts.
-        this.state = { postType: "Post", isAnonymous: false, shareWith: "", selectedTag: "", title: "", body: "" };
+        this.state = { postType: "", isAnonymous: "", shareWith: "Everyone", selectedTag: "", title: "", body: "" };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -34,11 +34,35 @@ export class CreatePost extends Component {
      */
     handleSubmit(event) {
 
-        alert('share with: ' + this.state.shareWith + '\n is anon: ' + this.state.isAnonymous
-            + + ' \nselected tag: ' + this.state.selectedTag + "\n title : " + this.state.title + "\n body: " + this.state.body);
+
+        // take out later -- alert showing data
+        alert('post type: ' + this.state.postType + '\n share with: ' + this.state.shareWith + '\n is anon: ' + this.state.isAnonymous
+            + ' \nselected tag: ' + this.state.selectedTag + "\n title : " + this.state.title + "\n body: " + this.state.body);
+        this.props.SwapOutCreateFn();
         event.preventDefault();
 
-        this.props.SwapOutCreateFn();
+
+        // Create the post
+        let isAnon = false;
+        if (this.state.isAnonymous == "yes") {
+            isAnon = true;
+        }
+        var newPost = {category: this.state.selectedTag, title: this.state.title,
+            body: this.state.body, "authorID": 3, "isAnonymous": isAnon
+        }
+
+
+        // Send request to the DB.
+        /*
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: 'React POST Request Example' })
+        };
+        fetch('https://reqres.in/api/posts', requestOptions)
+            .then(response => response.json())
+            .then(data => this.setState({ postId: data.id }));
+            */
 
 
     }
@@ -60,27 +84,6 @@ export class CreatePost extends Component {
         value = target.value;
         this.setState({ [name]: value });
 
-        if (event.target.name == "body")
-        {
-            this.setState({ [name]: value });
-        }
-        //this.setState({ upvotes: "hi"});
-
-        /*const testing = event.target.tagName;
-        const target = event.target;
-        let value;
-        const name = target.name;
-        // Check if it was the checkbox or not.
-        if (target.type === 'checkbox') {
-            value = target.checked;
-        }
-        else {
-            // Must be one of the dropdowns.
-            value = target.value;
-        }
-
-
-        this.setState({ [name]: value }); */
     }
 
     render() {
@@ -89,9 +92,36 @@ export class CreatePost extends Component {
                 <div className="w-100 justify-content-center" style={{ margin: '0 auto', position: 'relative' }}>
                     <form onSubmit={this.handleSubmit}>
 
+                        <br />
+
+                        <div onChange={this.handleInputChange}>
+                            <label>
+                                Post Type: &emsp;
+
+                                <input type="radio" value="Question" name="postType" required /> Question &emsp;
+                                <input type="radio" value="Note" name="postType" /> Note
+
+                            </label>
+                        </div>
+
+                        <br />
+
+                        <div onChange={this.handleInputChange}>
+                            <label>
+                                Anonymous to Other Students: &emsp;
+
+                                <input type="radio" value="yes" name="isAnonymous" required /> Yes &emsp;
+                                <input type="radio" value="no" name="isAnonymous" /> No
+
+                            </label>
+                        </div>
+
+                        <br />
+
                         <label>
                             Share With: &emsp;
-                            <select value={this.state.shareWith} name="shareWith" onChange={this.handleInputChange}>
+                            <select name="shareWith" onChange={this.handleInputChange} required>
+                                <option value="" disabled selected> </option>
                                 <option value="Everyone">Everyone</option>
                                 <option value="Instructors Only">Instructors Only</option>
                                 <option value="Professor Only">Professor Only</option>
@@ -102,14 +132,27 @@ export class CreatePost extends Component {
                         <br />
 
                         <label>
-                            Title: &emsp;
-                            <input type="text" name="title" value={this.state.title} onChange={this.handleInputChange} />
+                            Select a tag: &emsp;
+                            <select value={this.state.selectedTag} name="selectedTag" onChange={this.handleInputChange} required>
+                                <option value="" disabled selected> </option>
+                                <option value="tag1">tag1</option>
+                                <option value="tag2">tag2</option>
+                                <option value="tag3">tag3</option>
+                            </select>
                         </label>
 
                         <br />
                         <br />
 
-                        <textarea className="w-100" name="body" value={this.state.body} onChange={this.handleInputChange} />
+                        <label>
+                            Title: &emsp;
+                            <input type="text" name="title" value={this.state.title} onChange={this.handleInputChange} required />
+                        </label>
+
+                        <br />
+                        <br />
+
+                        <textarea className="w-100" rows="8" name="body" value={this.state.body} onChange={this.handleInputChange} required />
 
                         <div className="btn-group d-flex" role="group">
                             <input className="w-100 m-1 btn accent-color text-white" type="submit" value="Post" />
