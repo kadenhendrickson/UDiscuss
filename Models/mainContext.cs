@@ -54,7 +54,9 @@ namespace UDiscuss.Models
 
                 entity.Property(e => e.ShortName).HasMaxLength(50);
 
-                entity.Property(e => e.Year).HasColumnType("year(4)");
+                entity.Property(e => e.Year)
+                    .HasColumnType("year(4)")
+                    .HasDefaultValueSql("year(current_timestamp())");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -89,7 +91,9 @@ namespace UDiscuss.Models
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("ClassID");
 
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+                entity.Property(e => e.DateCreated)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
 
                 entity.Property(e => e.RelativeId)
                     .HasColumnType("int(10) unsigned")
@@ -156,9 +160,6 @@ namespace UDiscuss.Models
 
                 entity.HasIndex(e => e.AuthorId, "Reply_FK_2");
 
-                entity.HasIndex(e => new { e.Endorsed, e.PostId }, "Reply_UN")
-                    .IsUnique();
-
                 entity.Property(e => e.ReplyId)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("ReplyID");
@@ -169,7 +170,9 @@ namespace UDiscuss.Models
 
                 entity.Property(e => e.Body).HasColumnType("text");
 
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
+                entity.Property(e => e.DateCreated)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("current_timestamp()");
 
                 entity.Property(e => e.ParentReply).HasColumnType("int(10) unsigned");
 
@@ -191,7 +194,6 @@ namespace UDiscuss.Models
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Replies)
                     .HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Reply_FK_1");
             });
 
@@ -242,7 +244,7 @@ namespace UDiscuss.Models
                 entity.Property(e => e.UserId)
                     .HasColumnType("int(10) unsigned")
                     .HasColumnName("UserID");
-                entity.Property(e => e.Email).HasMaxLength(255);
+
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.LastName).HasMaxLength(50);

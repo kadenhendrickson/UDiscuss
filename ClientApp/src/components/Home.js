@@ -36,7 +36,7 @@ export class Home extends Component {
 
     // DB TESTING
     async getAllPosts() {
-        const response = await fetch('/post/1');
+        const response = await fetch('/api/post/1');
         const json = await response.json();
         this.setState({posts : json, loading : false})
     }
