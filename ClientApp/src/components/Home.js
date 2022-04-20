@@ -67,7 +67,7 @@ export class Home extends Component {
             rightPanel =
                 <div>
                     <div onClick={this.createPostClicked}>
-                        <button className="w-100 btn white-with-red-outline-button">Create Post</button>
+                        <button className="w-100 m-2 btn white-with-red-outline-button">Create Post</button>
                     </div>
                     {postContent}
                     {solutionContent}
