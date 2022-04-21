@@ -10,7 +10,7 @@ using UDiscuss.Data;
 
 namespace UDiscuss.Migrations
 {
-    [DbContext(typeof(UDiscussContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class UDiscussContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

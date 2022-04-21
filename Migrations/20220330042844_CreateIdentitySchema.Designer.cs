@@ -11,7 +11,7 @@ using UDiscuss.Data;
 
 namespace UDiscuss.Migrations
 {
-    [DbContext(typeof(UDiscussContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20220330042844_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

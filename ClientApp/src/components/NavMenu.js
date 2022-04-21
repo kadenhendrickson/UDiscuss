@@ -6,6 +6,7 @@ import './NavMenu.css';
 import './css/Design.css'
 import './css/LightTheme.css';
 import UtahU from './Images/UtahU.png';
+import { LoginMenu } from './api-authorization/LoginMenu';
 
 export class NavMenu extends Component {
 
@@ -84,7 +85,9 @@ export class NavMenu extends Component {
                                             <DropdownItem tag='a' href='/help'>Help</DropdownItem>
                                             <DropdownItem tag='a' href='/'>Logout</DropdownItem>
                                         </DropdownMenu>
-                                    </Dropdown>
+                                </Dropdown>
+                                <LoginMenu>
+                                </LoginMenu>
 
                             </ul>
                         </Collapse>
