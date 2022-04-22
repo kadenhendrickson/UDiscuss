@@ -14,6 +14,8 @@
         public bool isAnonymous { get; set; }
 
         public bool isAnswered { get; set; }
+
+        public string type { get; set; } = null!;
     }
 
 

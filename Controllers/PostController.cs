@@ -54,6 +54,7 @@ public class PostController : ControllerBase
                      authorLName = !p.Anonymous ? p.Author.LastName : null,
                      relativeID = p.RelativeId,
                      isAnswered = p.Replies.Any(),
+                     type = p.Type
                  }).ToList<PostDTO>();
 
 
