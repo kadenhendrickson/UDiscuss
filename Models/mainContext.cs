@@ -101,6 +101,10 @@ namespace UDiscuss.Models
 
                 entity.Property(e => e.Title).HasMaxLength(50);
 
+                entity.Property(e => e.Type)
+                    .HasMaxLength(20)
+                    .HasDefaultValueSql("'question'");
+
                 entity.HasOne(d => d.Author)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.AuthorId)
@@ -129,6 +133,9 @@ namespace UDiscuss.Models
                     .UseCollation("utf8mb4_general_ci");
 
                 entity.HasIndex(e => e.ClassId, "PostCategories_FK");
+
+                entity.HasIndex(e => new { e.Name, e.ClassId }, "PostCategories_UN")
+                    .IsUnique();
 
                 entity.Property(e => e.CategoryId)
                     .HasColumnType("int(10) unsigned")

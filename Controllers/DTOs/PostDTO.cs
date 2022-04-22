@@ -26,5 +26,7 @@
 
         public bool isAnonymous { get; set; }
 
+        public string type { get; set; } = null!;
+
     }
 }

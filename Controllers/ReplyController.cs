@@ -64,6 +64,7 @@ public class ReplyController : ControllerBase
             PostId = postID,
             AuthorId = rDTO.authorID,
             Body = rDTO.body,
+            DateCreated = DateTime.Now,
         };
 
         db.Replies.Add(r);
