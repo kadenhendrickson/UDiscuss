@@ -19,6 +19,7 @@ namespace UDiscuss.Models
         public uint AuthorId { get; set; }
         public uint RelativeId { get; set; }
         public bool Anonymous { get; set; }
+        public string Type { get; set; } = null!;
 
         public virtual User Author { get; set; } = null!;
         public virtual PostCategory Category { get; set; } = null!;

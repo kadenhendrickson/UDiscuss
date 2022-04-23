@@ -29,20 +29,6 @@ public class PostController : ControllerBase
         db = mockContext;
     }
 
-
-    ///// <summary>
-    ///// This will return a post with the matching id or null if the post
-    ///// cannot be found.
-    ///// </summary>
-    ///// <param name="postid">The id that refers to the post</param>
-    ///// <returns>IEnumerables of a post that matches the id provided or null
-    ///// if it doesn't exist.</returns>
-    //[HttpGet]
-    //public IEnumerable<Post> Get(int postid)
-    //{
-    //    return null;
-    //}
-
     /// <summary>
     /// This will get all of the posts in a certain class
     /// 
@@ -68,6 +54,7 @@ public class PostController : ControllerBase
                      authorLName = !p.Anonymous ? p.Author.LastName : null,
                      relativeID = p.RelativeId,
                      isAnswered = p.Replies.Any(),
+                     type = p.Type
                  }).ToList<PostDTO>();
 
 
@@ -77,9 +64,23 @@ public class PostController : ControllerBase
     [HttpPost("{classID}")]
     public void Post(uint classID, [FromBody]PostCreateDTO pDTO)
     {
-        uint catID = (from d in db.PostCategories
+        string[] allowAbleTypes = { "question", "note" };
+
+        if (!allowAbleTypes.Contains(pDTO.type.ToLower()))
+        {
+            throw new BadHttpRequestException("Post type invalid.");
+        }
+
+        var catIDQuery = (from d in db.PostCategories
                       where d.Name == pDTO.category && d.ClassId == classID
-                      select d.CategoryId).First();
+                      select d.CategoryId);
+
+        if (!catIDQuery.Any())
+        {
+            throw new BadHttpRequestException("Specified category not found.");
+        }
+
+        uint catID = catIDQuery.First();
 
         uint nextRelativeID = 0;
         var query = (from po in db.Posts
@@ -97,9 +98,10 @@ public class PostController : ControllerBase
             Title = pDTO.title,
             ClassId = classID,
             CategoryId = catID,
-            DateCreated = DateTime.Now,
             RelativeId = nextRelativeID,
-            Anonymous = pDTO.isAnonymous
+            Anonymous = pDTO.isAnonymous,
+            DateCreated = DateTime.Now,
+            Type = pDTO.type
         };
 
         db.Posts.Add(p);

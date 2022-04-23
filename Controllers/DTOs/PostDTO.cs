@@ -14,6 +14,8 @@
         public bool isAnonymous { get; set; }
 
         public bool isAnswered { get; set; }
+
+        public string type { get; set; } = null!;
     }
 
 
@@ -25,6 +27,8 @@
         public uint authorID { get; set; }
 
         public bool isAnonymous { get; set; }
+
+        public string type { get; set; } = null!;
 
     }
 }
