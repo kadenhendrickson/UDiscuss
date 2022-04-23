@@ -11,7 +11,6 @@ import './../css/Design.css';
 export class CreatePost extends Component {
     static displayName = CreatePost.name;
 
-
     constructor(props) {
         super(props);
 
@@ -20,7 +19,9 @@ export class CreatePost extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+
     }
+
 
     /**
      * 
@@ -31,14 +32,12 @@ export class CreatePost extends Component {
      * needs to be filled in still.
      * 
      */
-    handleSubmit(event) {
+    async handleSubmit(event) {
 
 
         // take out later -- alert showing data
-        alert('post type: ' + this.state.postType + '\n share with: ' + this.state.shareWith + '\n is anon: ' + this.state.isAnonymous
-            + ' \nselected tag: ' + this.state.selectedTag + "\n title : " + this.state.title + "\n body: " + this.state.body);
-        this.props.SwapOutCreateFn();
-        event.preventDefault();
+        /*alert('post type: ' + this.state.postType + '\n share with: ' + this.state.shareWith + '\n is anon: ' + this.state.isAnonymous
+            + ' \nselected tag: ' + this.state.selectedTag + "\n title : " + this.state.title + "\n body: " + this.state.body); */
 
 
         // Create the post
@@ -46,24 +45,29 @@ export class CreatePost extends Component {
         if (this.state.isAnonymous == "yes") {
             isAnon = true;
         }
-        var newPost = {category: this.state.selectedTag, title: this.state.title,
-            body: this.state.body, "authorID": 3, "isAnonymous": isAnon
+        var newPost = {
+            category: this.state.selectedTag, title: this.state.title,
+            body: this.state.body, "authorID": this.props.userID, "isAnonymous": isAnon,
+            type: this.state.postType
         }
 
 
         // Send request to the DB.
-        
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newPost)
         };
         fetch('/api/post/1', requestOptions)
-            .then(response => alert("post created!"))
+            .then(response => {
+                alert("post created!");
+
+                this.props.SwapOutCreateFn();
+            })
             .catch(data => alert("error creating post....."));
-            
 
-
+        event.preventDefault();
     }
 
     /**
@@ -134,9 +138,7 @@ export class CreatePost extends Component {
                             Select a Tag: &emsp;
                             <select value={this.state.selectedTag} name="selectedTag" onChange={this.handleInputChange} required>
                                 <option value="" disabled selected> </option>
-                                <option value="Assignments">assignments</option>
-                                <option value="tag2">tag2</option>
-                                <option value="tag3">tag3</option>
+                                {this.props.categories.map((cat) => <option value={cat}>{cat}</option>)}
                             </select>
                         </label>
 

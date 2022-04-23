@@ -18,13 +18,18 @@ export class SelectedPost extends Component {
     }
 
     render() {
+        // Handle anonymous author case.
+        var postAuthor = this.props.post.authorFName + " " + this.props.post.authorLName;
+        if (this.props.post.isAnonymous) {
+            postAuthor = "Anonymous User";
+        }
         return (
             <div className="m-2 post-border border-color w-100">
-                <SelectedPostHeader postType="Question" author="Author Name" timeSincePost="2 hrs ago" />
-                <SelectedPostTitle title={this.props.post.title}/>
+                <SelectedPostHeader postType={this.props.post.type} author={postAuthor} timeSincePost={this.props.post.dateCreated} />
+                <SelectedPostTitle title={this.props.post.title} />
                 <SelectedPostBody body={this.props.post.body} />
-                <div style={{float: 'right', margin: '10px'}}>
-                    <SelectedPostTag tagTitle="Logistics" />
+                <div style={{ float: 'right', margin: '10px' }}>
+                    <SelectedPostTag tagTitle={this.props.post.category} />
                 </div>
                 <SelectedPostVoteButton upvotes={7} isToggled={false} />
             </div>

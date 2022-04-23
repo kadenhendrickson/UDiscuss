@@ -15,23 +15,37 @@ export class Home extends Component {
 
         this.ListItemHandler = this.ListItemHandler.bind(this);
         this.getAllPosts = this.getAllPosts.bind(this);
+        this.getClassCategories = this.getClassCategories.bind(this);
 
         // For switching to creating a post
         this.createPostClicked = this.createPostClicked.bind(this);
 
-        this.state = { selectedPostIndex: 0, posts: [], loading: true, creatingPost: false };
+        this.tempUserHandler = this.tempUserHandler.bind(this);
+
+        this.state = { selectedPostIndex: 0, posts: [], loading: true, creatingPost: false, classCategories: [], userID : "1"};
 
     }
 
     componentDidMount() {
         this.getAllPosts();
+        this.getClassCategories();
+    }
+
+    tempUserHandler(event) {
+        this.setState({ userID : event.target.value});
     }
 
 
     async getAllPosts() {
         const response = await fetch('/api/post/1');
         const json = await response.json();
-        this.setState({ posts: json, loading: false })
+        this.setState({ posts: json, loading: false });
+    }
+
+    async getClassCategories() {
+        const response = await fetch('/api/class/categories/1');
+        const json = await response.json();
+        this.setState({ classCategories: json });
     }
 
     ListItemHandler = (index) => {
@@ -44,6 +58,11 @@ export class Home extends Component {
      */
     createPostClicked() {
         this.setState({ creatingPost: !this.state.creatingPost });
+
+        // If a post was just created, load in the posts again.
+        if (!this.state.creatingPost) {
+            this.getAllPosts();
+        }
     }
 
 
@@ -76,7 +95,7 @@ export class Home extends Component {
         else {
             rightPanel =
                 <div>
-                <CreatePost SwapOutCreateFn={this.createPostClicked}/>
+                <CreatePost userID={this.state.userID} categories={this.state.classCategories} SwapOutCreateFn={this.createPostClicked}/>
                 </div>;
         }
 
@@ -84,6 +103,20 @@ export class Home extends Component {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4">
+
+
+                        <label className="m-1">
+                            Select User: &emsp;
+                            <select name="userID" onChange={this.tempUserHandler} required>
+                                <option value="3"> Ryan Howell</option>
+                                <option value="10">Mark Patterson</option>
+                                <option value="12">Kaden Hendrickson</option>
+                                <option value="4">Lucas Katsanevas</option>
+                            </select>
+                        </label>
+
+
+
                         {listContent}
                     </div>
                     <div class="col-sm-8">
