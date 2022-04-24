@@ -21,8 +21,17 @@ export class Home extends Component {
         this.createPostClicked = this.createPostClicked.bind(this);
 
         this.tempUserHandler = this.tempUserHandler.bind(this);
+        this.filterPostsBy = this.filterPostsBy.bind(this);
 
-        this.state = { selectedPostIndex: 0, posts: [], loading: true, creatingPost: false, classCategories: [], userID : "1"};
+        this.state = {
+            selectedPostIndex: 0,
+            posts: [],
+            displayedPosts: [],
+            loading: true,
+            creatingPost: false,
+            classCategories: [],
+            userID: "1"
+        };
 
     }
 
@@ -39,7 +48,7 @@ export class Home extends Component {
     async getAllPosts() {
         const response = await fetch('/api/post/1');
         const json = await response.json();
-        this.setState({ posts: json, loading: false });
+        this.setState({ posts: json, displayedPosts: json, loading: false });
     }
 
     async getClassCategories() {
@@ -65,11 +74,38 @@ export class Home extends Component {
         }
     }
 
+    filterPostsBy = (event) => {
+        var tempPosts = [];
+        switch (event.target.value) {
+            case 'All':
+                tempPosts = this.state.posts;
+                break;
+            case 'Unread':
+                break;
+            case 'Unanswered':
+                tempPosts = this.state.posts.filter(p => !p.isAnswered)
+                break;
+            case 'Answered':
+                tempPosts = this.state.posts.filter(p => p.isAnswered)
+                break;
+            case 'InstructorPost':
+                break;
+            default:
+                break;
+        }
+
+        if (tempPosts.length > 0) {
+            this.setState({ displayedPosts: tempPosts, selectedPostIndex: 0 });
+            console.log(tempPosts);
+        }
+        console.log("Value of the filter is: ", event.target.value);
+    }
+
 
     render() {
         let listContent = this.state.loading
             ? <p><em>Loading...</em></p>
-            : <PostList posts={this.state.posts} handler={this.ListItemHandler} />;
+            : <PostList posts={this.state.displayedPosts} handler={this.ListItemHandler} />;
 
 
         let rightPanel, postContent, solutionContent;
@@ -77,7 +113,7 @@ export class Home extends Component {
         if (!this.state.creatingPost) {
             postContent = this.state.loading
                 ? <p><em>Loading...</em></p>
-                : <SelectedPost post={this.state.posts[this.state.selectedPostIndex]} />;
+                : <SelectedPost post={this.state.displayedPosts[this.state.selectedPostIndex]} />;
 
             solutionContent = this.state.loading
                 ? <p><em>Loading...</em></p>
@@ -115,6 +151,16 @@ export class Home extends Component {
                             </select>
                         </label>
 
+                        <label className="m-1">
+                            Filter By: &emsp;
+                            <select name="filterBy" onChange={this.filterPostsBy} required>
+                                <option value = "All" selected> All </option>
+                                <option value="Unread">Unread</option>
+                                <option value="Unanswered">Unanswered</option>
+                                <option value="Answered">Answered</option>
+                                <option value="InstructorPost">Instructor Posts</option>
+                            </select>
+                        </label>
 
 
                         {listContent}
