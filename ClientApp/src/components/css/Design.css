@@ -54,3 +54,12 @@ input[type='radio'] {
     input[type="radio"]:checked:before {
         background: #CC0000;
     }
+
+
+.commentContainer {
+    background: #CECECE;
+}
+
+.comment {
+    background: #E5E5E5;
+}

@@ -3,6 +3,7 @@ import { PostList } from './PostList/PostList'
 import { SelectedPost } from './SelectedPost/SelectedPost'
 import { SolutionBox } from './SolutionBox/SolutionBox';
 import { CreatePost } from './CreatePost/CreatePost';
+import { CommentContainer } from './CommentThreads/CommentContainer';
 
 
 
@@ -16,6 +17,7 @@ export class Home extends Component {
         this.ListItemHandler = this.ListItemHandler.bind(this);
         this.getAllPosts = this.getAllPosts.bind(this);
         this.getClassCategories = this.getClassCategories.bind(this);
+        this.getCommentsForPost = this.getCommentsForPost.bind(this);
 
         // For switching to creating a post
         this.createPostClicked = this.createPostClicked.bind(this);
@@ -30,7 +32,10 @@ export class Home extends Component {
             loading: true,
             creatingPost: false,
             classCategories: [],
-            userID: "3"
+            userID: "3",
+            comments: [],
+            loadingComments: true
+
         };
 
     }
@@ -38,12 +43,20 @@ export class Home extends Component {
     componentDidMount() {
         this.getAllPosts();
         this.getClassCategories();
+        this.getCommentsForPost(0);
     }
 
     tempUserHandler(event) {
         this.setState({ userID : event.target.value});
     }
 
+    async getCommentsForPost(postID) {
+        console.log("THE POST ID IS: ", '/api/reply/'+postID);
+
+        const response = await fetch('/api/reply/' + postID);
+        const json = await response.json();
+        this.setState({ comments: json, loadingComments: false});
+    }
 
     async getAllPosts() {
         const response = await fetch('/api/post/1');
@@ -59,6 +72,8 @@ export class Home extends Component {
 
     ListItemHandler = (index) => {
         this.setState({ selectedPostIndex: index });
+        console.log("About to fetch comments for post with index: ", this.state.displayedPosts[index].id);
+        this.getCommentsForPost(this.state.displayedPosts[index].id);
     }
 
     /*
@@ -108,7 +123,7 @@ export class Home extends Component {
             : <PostList posts={this.state.displayedPosts} handler={this.ListItemHandler} />;
 
 
-        let rightPanel, postContent, solutionContent;
+        let rightPanel, postContent, solutionContent, commentContent;
 
         if (!this.state.creatingPost) {
             postContent = this.state.loading
@@ -119,13 +134,19 @@ export class Home extends Component {
                 ? <p><em>Loading...</em></p>
                 : <SolutionBox isVerified={true} author="Professor Brown" />;
 
+            commentContent = this.state.loadingComments
+                ? <p><em>Loading...</em></p>
+                : <CommentContainer comments={this.state.comments} />;
+
             rightPanel =
                 <div>
                     <div onClick={this.createPostClicked}>
                         <button className="w-100 m-2 btn white-with-red-outline-button">Create Post</button>
                     </div>
                     {postContent}
-                    {solutionContent}
+                {solutionContent}
+                {commentContent}
+
                 </div>;
         }
         else {
