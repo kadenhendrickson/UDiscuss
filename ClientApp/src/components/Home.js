@@ -30,7 +30,7 @@ export class Home extends Component {
             loading: true,
             creatingPost: false,
             classCategories: [],
-            userID: "1"
+            userID: "3"
         };
 
     }
